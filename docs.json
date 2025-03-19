@@ -104,6 +104,24 @@
                     ]
                   }
                 ]
+              },
+              {
+                "group": "React Native",
+                "icon": "react",
+                "pages": [
+                  "sdk-integration/react-native/get-started",
+                  {
+                    "group": "광고 포맷",
+                    "pages": [
+                      "sdk-integration/react-native/ad-formats/banner",
+                      "sdk-integration/react-native/ad-formats/mrec",
+                      "sdk-integration/react-native/ad-formats/native",
+                      "sdk-integration/react-native/ad-formats/interstitial",
+                      "sdk-integration/react-native/ad-formats/rewarded"
+                    ]
+                  },
+                  "sdk-integration/react-native/changelog"
+                ]
               }
             ]
           }
