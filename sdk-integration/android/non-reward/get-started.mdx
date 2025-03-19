@@ -3,11 +3,9 @@ title: "시작하기"
 description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다."
 ---
 
-![Android](https://img.shields.io/badge/Daro_Android_SDK-v0.6.3-3DDC84?logo=android&logoColor=white)
+## ![Android](https://img.shields.io/badge/Daro_Android_SDK-v0.6.3-3DDC84?logo=android&logoColor=white)
 
----
-
-## 시작하기 전에
+시작하기 전에
 
 프로젝트에 Daro SDK를 통합하기 전에 필요한 사항들을 확인하세요.
 
@@ -19,7 +17,7 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
 
 - AdMob 자체 이슈로 인하여 Banner와 Native 광고를 Jetpack Compose 위에 올릴 경우, impression이 정상적으로 집계되지 않아 수익에 악영향이 있습니다.
   - Banner와 Native 광고는 기존 안드로이드 뷰 방식위에 올려주세요.
-  - Jetpack Compose의 [AndroidView Composable](<https://developer.android.com/reference/kotlin/androidx/compose/ui/viewinterop/package-summary?_gl=1*sfjhoo*_up*MQ..*_ga*MTc5NjYzMDU3Ni4xNzE1MjI4ODQy*_ga_6HH9YJMN9M*MTcxNTIyODg0MS4xLjAuMTcxNTIyODg0MS4wLjAuMA..#AndroidView(kotlin.Function1,androidx.compose.ui.Modifier,kotlin.Function1)>) 역시 같은 이슈가 존재합니다.
+  - Jetpack Compose의 [AndroidView Composable](https://developer.android.com/reference/kotlin/androidx/compose/ui/viewinterop/package-summary?_gl=1*sfjhoo*_up*MQ..*_ga*MTc5NjYzMDU3Ni4xNzE1MjI4ODQy*_ga_6HH9YJMN9M*MTcxNTIyODg0MS4xLjAuMTcxNTIyODg0MS4wLjAuMA..#AndroidView\(kotlin.Function1,androidx.compose.ui.Modifier,kotlin.Function1\)) 역시 같은 이슈가 존재합니다.
 
 ---
 
@@ -33,9 +31,9 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
    android.useAndroidX=true
    android.enableJetifier=true
    ```
-
 2. settings.gradle 파일에 maven repository 들을 추가합니다.
    - build.gradle.kotlin (Kotlin)
+
      ```kotlin
      dependencyResolutionManagement {
          ...
@@ -74,6 +72,7 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
      }
      ```
    - build.gradle (Groovy)
+
      ```groovy
      allprojects {
          ...
@@ -109,7 +108,6 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
          }
      ```
 3. build.gradle(root) 파일에 buildScript를 추가합니다.
-
    - build.gradle (Groovy)
 
      ```groovy
@@ -124,7 +122,6 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
          }
      }
      ```
-
    - build.gradle.kotlin (Kotlin)
 
      ```kotlin
@@ -145,7 +142,6 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
 ### 모듈 단위 빌드 설정
 
 1. Daro SDK를 추가합니다. (latest: `0.6.3`)
-
    - build.gradle.kotlin (Kotlin)
 
    ```kotlin
@@ -154,14 +150,13 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
        id("droom.daro.a")
        ...
    }
-
+   
    dependencies {
        ...
        implementation("com.github.delightroom:daro-android:${version}")
        ...
    }
    ```
-
    - build.gradle (Groovy)
 
    ```groovy
@@ -170,14 +165,13 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
        id 'droom.daro.a'
        ...
    }
-
+   
    dependencies {
        ...
        implementation 'com.github.delightroom:daro-android:${version}'
        ...
    }
    ```
-
 2. rootProject에 daro-service.json 파일을 추가합니다.
 
    ```
@@ -187,7 +181,7 @@ description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합
    ...
    │
    ├── daro-serivce.json
-
+   
    ```
 
    :::note

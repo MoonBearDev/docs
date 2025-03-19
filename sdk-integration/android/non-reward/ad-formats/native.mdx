@@ -1,8 +1,7 @@
 ---
-sidebar_position: 3
+sidebar_position: "3"
+title: "네이티브 광고"
 ---
-
-# 네이티브 광고
 
 ## 네이티브 형태 소개
 
@@ -14,7 +13,6 @@ sidebar_position: 3
 ## View 생성하기
 
 1. `DaroAdNativeView` 를 생성합니다.
-
    1. XML 사용시
 
       ```kotlin
@@ -23,30 +21,27 @@ sidebar_position: 3
         <droom.daro.lib.banner.DaroAdNativeView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
-
+      
       ...
       ```
-
    2. 코드 내부에서 생성 시
 
    ```kotlin
    val nativeView = DaroAdNativeView(context)
    ```
-
 2. 뷰에 필요한 설정들을 정의합니다.
 
    ```kotlin
    nativeView.apply{
    	autoDestroy = ...
-
+   
    	setListener(object: DaroAdView.DaroAdViewListener{
    		...
    	})
-
+   
    	adNativeOption = DaroAdNativeOption()
    }
    ```
-
    1. 뷰를 선언하면 자체적으로 화면에 맞는 라이프사이클을 찾아 동작을 관리합니다. 따로 resume, pause, destroy를 호출하지 않아도 됩니다.
       1. `autoDestroy` 값을 false(default: true)로 설정하는 경우, destroy를 직접 호출해주셔야 합니다.
    2. `setListener` 를 통해서 광고뷰에 리스너를 추가할 수 있습니다.
@@ -64,23 +59,23 @@ sidebar_position: 3
          ad: DaroNativeAd,
          adViewContainer: DaroNativeAdViewContainer,
        ): View {
-
+   
          return LayoutInflater.from(context).inflate(R.layout.layout_native, null).also {
            val title: TextView = it.findViewById(R.id.view_title)
            val icon: ImageView = it.findViewById(R.id.view_icon)
            val body: TextView = it.findViewById(R.id.view_body)
            val cta: TextView = it.findViewById(R.id.button_cta)
-
+   
    				// 광고 정보를 받아와서 뷰에 설정
            title.text = ad.getHeadline() ?: ""
            body.text = ad.getBody() ?: ""
            cta.text = ad.getCallToAction() ?: ""
-
+   
            Glide
              .with(context)
              .load(ad.getIcon()?.uri)
              .into(icon)
-
+   
    				// 광고 컨테이너에 광고 관련 뷰 등록
            adViewContainer.setHeadlineView(title)
            adViewContainer.setIconView(icon)
@@ -91,7 +86,6 @@ sidebar_position: 3
      }
    )
    ```
-
    1. adViewContainer에 내부 뷰에 대한 정보들을 등록해주어야 합니다.
    2. `DaroNativeAdTemplate` 를 통한 기본 템플릿을 제공합니다.
 
@@ -100,7 +94,6 @@ sidebar_position: 3
       nativeView.setAdRenderer(DaroNativeAdTemplate.BANNER)
       nativeView.setAdRenderer(DaroNativeAdTemplate.LINE_CENTER)
       ```
-
 2. `load()` 메서드를 호출합니다.
 
    ```kotlin

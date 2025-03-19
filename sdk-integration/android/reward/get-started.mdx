@@ -1,14 +1,10 @@
 ---
-sidebar_position: 1
+sidebar_position: "1"
+title: "시작하기"
+description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다."
 ---
 
-# 시작하기
-
-![Android](https://img.shields.io/badge/Daro_Android_SDK-v0.4.4-3DDC84?logo=android&logoColor=white)
-
-Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
-
----
+## ![Android](https://img.shields.io/badge/Daro_Android_SDK-v0.4.4-3DDC84?logo=android&logoColor=white)
 
 ## 시작하기 전에
 
@@ -23,7 +19,6 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
 ### 프로젝트 단위 빌드 설정
 
 1. settings.gradle 파일에 maven repository 들을 추가합니다.
-
    - build.gradle.kotlin (Kotlin)
 
      ```kotlin
@@ -33,7 +28,7 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
              google()
              mavenCentral()
              ...
-
+     
              maven {
                  url = uri("https://jitpack.io")
              }
@@ -58,8 +53,8 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
          }
      }
      ```
-
    - build.gradle (Groovy)
+
      ```groovy
      allprojects {
          ...
@@ -88,9 +83,7 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
              }
          }
      ```
-
 2. build.gradle(root) 파일에 buildScript를 추가합니다.
-
    - build.gradle (Groovy)
 
      ```groovy
@@ -107,7 +100,6 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
          }
      }
      ```
-
    - build.gradle.kotlin (Kotlin)
 
      ```kotlin
@@ -130,7 +122,6 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
 ### 모듈 단위 빌드 설정
 
 1. Daro SDK를 추가합니다. (latest: `0.4.4`)
-
    - build.gradle.kotlin (Kotlin)
 
      ```kotlin
@@ -139,14 +130,13 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
          id("droom.daro.m")
          ...
      }
-
+     
      dependencies {
          ...
          implementation("com.github.delightroom:daro-android-m:${version}")
          ...
      }
      ```
-
    - build.gradle (Groovy)
 
      ```groovy
@@ -155,14 +145,13 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
          id 'droom.daro.m'
          ...
      }
-
+     
      dependencies {
          ...
          implementation 'com.github.delightroom:daro-android-m:${version}'
          ...
      }
      ```
-
 2. rootProject에 daro-service.json 파일을 추가합니다.
 
    ```
@@ -172,12 +161,12 @@ Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
    ...
    │
    ├── daro-serivce.json
-
+   
    ```
 
-   :::note
-   `daro-service.json` 파일은 DARO 대시보드에서 앱을 등록하고 앱 리스트 표의 맨 오른쪽 Key File 열에서 Download 버튼 클릭하여 다운로드 받을 수 있습니다.
-   :::
+   <Note>
+      daro-service.json 파일은 DARO 대시보드에서 앱을 등록하고 앱 리스트 표의 맨 오른쪽 Key File 열에서 Download 버튼 클릭하여 다운로드 받을 수 있습니다.
+   </Note>
 
 ---
 
