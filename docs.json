@@ -8,10 +8,7 @@
     "dark": "#5400b9"
   },
   "favicon": "/daro-favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
+  "tab": "Guides",
         "groups": [
           {
             "group": "다로 시작하기",
@@ -43,8 +40,6 @@
               }
             ]
           }
-        ]
-      }
     ],
     "global": {
       "anchors": [
