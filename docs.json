@@ -17,7 +17,7 @@
             "group": "다로 시작하기",
             "pages": [
               "before-the-beginning",
-              "app-ads-txt-settings"
+              "get-started/app-ads-txt-settings"
             ]
           },
           {
@@ -128,18 +128,23 @@
           {
             "group": "DARO 사용하기",
             "pages": [
-              "how-to-use/enter-payment-info",
-              "how-to-use/create-an-app",
-              "how-to-use/manage-an-app",
-              "how-to-use/create-an-ad-unit",
-              "how-to-use/manage-an-ad-unit",
-              "how-to-use/view-report-metrics"
-            ]
-          },
-          {
-            "group": "심화 기능",
-            "pages": [
-              "advanced/s2s-reward-video-callback"
+              {
+                "group": "대시보드",
+                "pages": [
+                  "how-to-use/create-an-app",
+                  "how-to-use/manage-an-app",
+                  "how-to-use/create-an-ad-unit",
+                  "how-to-use/manage-an-ad-unit",
+                  "how-to-use/view-report-metrics",
+                  "how-to-use/enter-payment-info"
+                ]
+              },
+              {
+                "group": "심화 기능",
+                "pages": [
+                  "advanced/s2s-reward-video-callback"
+                ]
+              }
             ]
           },
           {
