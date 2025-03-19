@@ -32,7 +32,16 @@
                     "group": "Non-reward 앱에 연동하기",
                     "pages": [
                       "sdk-integration/android/non-reward/get-started",
-                      "essentials/code",
+                      {
+                        "group": "광고 포맷",
+                        "pages": [
+                          "sdk-integration/android/non-reward/ad-formats/banner",
+                          "sdk-integration/android/non-reward/ad-formats/mrec",
+                          "sdk-integration/android/non-reward/ad-formats/native",
+                          "sdk-integration/android/non-reward/ad-formats/interstitial",
+                          "sdk-integration/android/non-reward/ad-formats/rewarded"
+                        ]
+                      },
                       "sdk-integration/android/non-reward/changelog"
                     ]
                   },
