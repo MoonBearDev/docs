@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "DARO DOCS",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#4263EB",
+    "light": "#5C7CFA",
+    "dark": "#3B5BDB"
   },
   "favicon": "/daro-favicon.svg",
   "navigation": {
