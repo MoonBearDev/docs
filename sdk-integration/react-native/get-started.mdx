@@ -1,17 +1,13 @@
 ---
-sidebar_position: 1
+title: "시작하기"
+description: "Daro React Native SDK를 앱에 통합하는 방법에 대해 안내합니다."
 ---
-
-# 시작하기
 
 ![React](https://img.shields.io/badge/Daro_React_Native_SDK-v0.9.20-61DAFB?logo=react&logoColor=white)
 
-Daro React Native SDK를 앱에 통합하는 방법에 대해 안내합니다.
-
-:::note 참고
-
-- React Native에 대해서는 앱 카테고리와 관계 없이 Daro SDK 연동을 지원합니다.
-  :::
+<Note>
+React Native에 대해서는 앱 카테고리와 관계 없이 Daro SDK 연동을 지원합니다.
+</Note>
 
 ---
 
@@ -31,8 +27,7 @@ npm i react-native-daro-m
 
 ### Android 프로젝트 설정하기
 
-<details>
-<summary>Android 프로젝트 설정하기</summary>
+<Accordion title="Android 프로젝트 설정하기" icon="sparkles">
 
     1. `settings.gradle`에 maven repository 들을 추가합니다.
 
@@ -170,16 +165,15 @@ npm i react-native-daro-m
         ├── daro-serivce.json
 
         ```
-        :::note
+        <Note>
         `daro-service.json` 파일은 DARO 대시보드에서 앱을 등록하고 앱 리스트 표의 맨 오른쪽 Key File 열에서 Download 버튼 클릭하여 다운로드 받을 수 있습니다.
-        :::
+        </Note>
 
-</details>
+</Accordion>
 
 ### iOS 프로젝트 설정하기
 
-<details>
-<summary>iOS 프로젝트 설정하기</summary>
+<Accordion title="iOS 프로젝트 설정하기" icon="sparkles">
 
 - `ios/PROJECT_NAME.xcworkspace` 을 열고 `daro-service.json` 파일을 드래그 앤 드롭으로 추가합니다.
 
@@ -464,7 +458,7 @@ npm i react-native-daro-m
     </dict>
     </array>
     ```
-</details>
+</Accordion>
 
 ## SDK 초기화하기
 
