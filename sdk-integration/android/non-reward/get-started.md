@@ -1,12 +1,9 @@
 ---
-sidebar_position: 1
+title: "시작하기"
+description: "Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다."
 ---
 
-# 시작하기
-
 ![Android](https://img.shields.io/badge/Daro_Android_SDK-v0.6.3-3DDC84?logo=android&logoColor=white)
-
-Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
 
 ---
 
