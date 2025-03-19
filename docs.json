@@ -17,7 +17,7 @@
             "group": "다로 시작하기",
             "pages": [
               "before-the-beginning",
-              "quickstart"
+              "app-ads-txt-settings"
             ]
           },
           {
@@ -26,6 +26,7 @@
               {
                 "group": "Android",
                 "icon": "android",
+                "page": "essentials/markdown",
                 "pages": [
                   "essentials/markdown",
                   "essentials/code",
