@@ -16,7 +16,7 @@
           {
             "group": "Get Started",
             "pages": [
-              "introduction",
+              "get-started",
               "quickstart",
               "development"
             ]
@@ -89,14 +89,12 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://dashboard.daro.so"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://linkedin.com/company/delightroom"
     }
   }
 }
