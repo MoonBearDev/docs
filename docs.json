@@ -24,7 +24,6 @@
           {
             "group": "SDK 통합하기",
             "pages": [
-              "quickstart",
               {
                 "group": "Android",
                 "icon": "android",
