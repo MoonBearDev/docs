@@ -1,12 +1,9 @@
 ---
-sidebar_position: 1
+title: "시작하기"
+description: "Daro iOS SDK를 앱에 통합하는 방법에 대해 안내합니다."
 ---
 
-# 시작하기
-
 ![iOS](https://img.shields.io/badge/Daro_iOS_SDK-v1.0.6-007AFF?logo=apple&logoColor=white)
-
-Daro iOS SDK를 앱에 통합하는 방법에 대해 안내합니다.
 
 ---
 

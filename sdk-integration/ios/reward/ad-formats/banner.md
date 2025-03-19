@@ -1,8 +1,6 @@
 ---
-sidebar_position: 1
+title: "배너 광고"
 ---
-
-# 배너 광고
 
 ## 배너 형태 소개
 

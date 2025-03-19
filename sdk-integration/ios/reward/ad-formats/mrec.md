@@ -1,8 +1,6 @@
 ---
-sidebar_position: 2
+title: "MREC 광고"
 ---
-
-# MREC 광고
 
 ## MREC 형태 소개
 
