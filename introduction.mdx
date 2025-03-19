@@ -1,71 +1,57 @@
 ---
-title: Introduction
-description: "Welcome to the home of your new documentation"
+title: 시작하기 전에
+description: "앱에 Daro를 적용하고 수익을 극대화하세요. Daro는 앱에 자동으로 최적의 광고를 게재하여 수익을 증대할 수 있도록 돕습니다."
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.png"
-  alt="Hero Dark"
-/>
+# 시작하기 전에
 
-## Setting up
+앱에 Daro를 적용하고 수익을 극대화하세요. Daro는 앱에 자동으로 최적의 광고를 게재하여 수익을 증대할 수 있도록 돕습니다.
 
-The first step to world-class documentation is setting up your editing environments.
+이용을 위한 과정은 아래와 같이 진행됩니다:
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
+`Daro 가입` > `앱 등록하기` > `앱 승인` > `광고 단위 생성` > `DARO SDK 연동` > `광고 수익화 시작`
 
-## Make it yours
+먼저 아래 과정을 통해 Daro 설치를 미리 준비하고, SDK 연동을 위한 다음 단계로 넘어가세요.
 
-Update your docs to your brand and add valuable content for the best user conversion.
+## 기존 광고 수익화 SDK 연동 제거하기
 
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+- 기존에 타 광고 수익화 SDK와 연동을 해놓은 상태라면 Daro와 충돌이 발생할 수 있기 때문에 제거가 필요합니다.
+- 만약, 기존에 미디에이션 플랫폼이나 광고 네트워크, 또는 SSP를 통해 광고 수익화를 진행하고 계셨다면 해당 SDK를 제거하고 세팅을 초기화해주세요.
+
+:::note
+만약, 이전에 Pangle 네트워크를 활용하고 계셨다면, 반드시 SDK 제거와 함께 Pangle의 대시보드에서 앱 Pause를 함께 진행해주시기 바랍니다.
+:::
+
+## Daro 대시보드에 앱 등록하기
+
+다음 단계를 완료하여 앱을 Daro 대시보드에 등록하세요.
+
+1. [Daro 대시보드](https://dashboard.daro.so)에 접속합니다.
+2. Daro 대시보드에 회원가입과 로그인을 진행하세요.
+3. 광고 수익화를 원하는 앱을 Daro 대시보드에 등록하세요. 연동에 필요한 유니크한 Daro App ID 값을 발급받을 수 있습니다.
+
+:::note
+DARO에서는 현재 하나의 앱을 여러 계정에 등록하는 것을 지원하고 있지 않습니다. 따라서 여럿이 협업하는 경우, 공용 계정을 만들어 활용해주시기 바랍니다.
+:::
+
+
+## 연동 전 FAQ
+- **연동 중 발생하는 문의는 어디로 하나요?**
+    
+    > 기본적으로 가이드 문서 참조하시어 연동 부탁드리며, 혹시 이슈가 발생했을 때  [support@daro.so](mailto:support@daro.so) 이메일로 전달주시면 안내드리겠습니다.
+    
+- **지원 가능한 개발환경은 어떻게 되나요?**
+    
+    > DARO는 Android, iOS, React Native 기반 앱에 대해서 연동을 지원하고 있습니다. 웹앱 등 이외의 환경에 대한 추가 안내는 문서([링크](https://docs.daro.so/faq/integration/web-app-integration))를 참조 부탁드립니다.
+    
+- **다른 광고수익화 플랫폼/네트워크와 병행하여 사용할 수 있나요?**
+    
+    > 다른 광고수익화 관련 SDK(미디에이션 플랫폼, SSP 등)를 사용하고 계시는 경우, 기본적으로는 DARO SDK와 충돌이 발생할 가능성이 있기 때문에 해당 SDK를 제거하고 세팅을 초기화 해야합니다.
+    
+- **수익은 어떻게 정산되나요?**
+    
+    > 수익은 대시보드 가입 시 업로드한 지급정보로 수익 발생일자 기준 다음 달 말일에 정산됩니다. 대시보드 상의 수익이 여러 디맨드에서 발생한 거래 수수료가 반영된 금액으로, 정산대상인 금액과 동일합니다.
+    
+- **미디에이션 플랫폼(애드몹, 앱러빈 등)과 DARO는 무엇이 다른가요?**
+    
+    > 미디에이션 플랫폼의 핵심 기능은 여러 광고 디맨드를 연동하여 수익화를 하는 것이며, 기본적으로 DARO가 제공하고 있는 기능입니다. 다만 DARO 이용 시에는 연동 이후 수익 고도화를 위한 미디에이션 운영이 불필요하다는 것이 가장 큰 장점입니다. 디맨드 확장, eCPM 극대화, 로직 효율화 등 광고수익화를 위한 모든 작업이 DARO 연동으로 자동화됩니다.
