@@ -3,9 +3,9 @@ title: "S2S 리워드 콜백 API"
 description: "DARO 서버에서는 개발사가 설정한 외부 서버로 서버 간(S2S) 리워드 콜백을 보낼 수 있습니다. 이 콜백을 통해 앱 유저가 리워드 비디오 광고를 끝까지 시청했을 때 리워드를 받을 자격이 있다는 것을 알려드립니다. 이 기능은 리워드 비디오 광고를 제대로 보지 않고 부당하게 리워드를 받으려는 악의적인 사용자들로부터 서비스를 보호해줍니다."
 ---
 
-:::note
-해당 기능은 현재 Reward 앱에 대해서만 제공하고 있으며, Non-reward 앱에 대해서는 제공하고 있지 않습니다.
-:::
+<Note>
+  해당 기능은 현재 Reward 앱에 대해서만 제공하고 있으며, Non-reward 앱에 대해서는 제공하고 있지 않습니다.
+</Note>
 
 ## 소개
 
@@ -13,6 +13,7 @@ DARO 서버는 유저가 DARO를 통해 제공되는 리워드 비디오 광고 
 
 만약 개발사의 서버가 5초 이내에 응답하지 않으면 콜백 요청은 타임아웃 처리됩니다. 타임아웃이 발생하면 DARO는 최대 2회까지 콜백 전송을 재시도합니다.
 
+![/advanced/img/ad-unit-reward-callback.png+_existingInIndexedDbMintlify](/advanced/img/ad-unit-reward-callback.png)
 
 이 콜백 기능을 사용하려면 '광고 단위' 페이지에서 리워드 비디오 광고 단위의 '콜백 URL' 값을 설정해주세요.
 
@@ -32,69 +33,132 @@ https://yourrewardedserver.com/rewards?mediation_ad_unit_id=9ad0816ac071552a&cus
 
 콜백 URL에 다음 표의 파라미터가 모두 쿼리스트링으로 함께 전송됩니다. custom_data 나 user_id를 설정 하지 않은 경우 null로 전달 됩니다.
 
-<div style={{maxWidth: '100%', overflowX: 'auto'}}>
-  <table style={{tableLayout: 'fixed', width: '100%'}}>
-    <colgroup>
-      <col style={{width: '20%'}} />
-      <col style={{width: '40%'}} />
-      <col style={{width: '25%'}} />
-      <col style={{width: '15%'}} />
-    </colgroup>
-    <thead>
-      <tr>
-        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'left'}}>쿼리 파라미터 이름</th>
-        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'left'}}>설명</th>
-        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'left'}}>예시</th>
-        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'left'}}>데이터 타입</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>mediation_ad_unit_id</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>미디에이션 광고 단위 ID (16자리 16진수)</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>9ad0816ac071552a</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>String</td>
-      </tr>
-      <tr>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>custom_data (optional)</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>사용자 정의 데이터 (URL 인코딩됨). 문자열 크기를 8192자 미만으로 유지할 것을 권장합니다.</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>my%20custom%20data</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>String</td>
-      </tr>
-      <tr>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>key</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>
-        아래 과정을 통해 생성된 키와 비교를 통해 검증 합니다.
-        1. hmac sha256 '콜백 검증 키'\*를 넣고 초기화<br/>
-        2. transaction_id 를 넣고 digest 생성<br/>
-        3. 16진수 (hex) 인코딩
-        </td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word', overflowWrap: 'break-word', wordBreak: 'break-all'}}>b46635e51e76778ec15856720114c4edd6b6c3c7aeeb2a1b51dc346640cbca45</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>String</td>
-      </tr>
-      <tr>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>timestamp</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>광고 로드 시간의 타임스탬프 (정수, Epoch Time)</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>1546300800</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>Int</td>
-      </tr>
-      <tr>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>transaction_id</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>고유 트랜잭션 ID, 32자리 16진수</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>0d0f748fcd0d4a4a9f6ac809216564b1</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>String</td>
-      </tr>
-      <tr>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>user_id (optional)</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>퍼블리셔가 정의한 사용자 ID (URL 인코딩됨); 최대 길이는 8192자</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>7634657898</td>
-        <td style={{border: '1px solid #ddd', padding: '8px', wordWrap: 'break-word'}}>String</td>
-      </tr>
-    </tbody>
-  </table>
+<div style={{ maxWidth:"100%",overflowX:"auto" }}>
+<table style={{ tableLayout:"fixed",width:"100%" }}>
+<colgroup>
+  <col style={{width: '20%'}} />
+
+  <col style={{width: '40%'}} />
+
+  <col style={{width: '25%'}} />
+
+  <col style={{width: '15%'}} />
+</colgroup>
+
+<thead>
+<tr>
+쿼리 파라미터 이름
+
+
+설명
+
+
+예시
+
+
+데이터 타입
+
+</tr>
+
+</thead>
+
+<tbody>
+<tr>
+mediation_ad_unit_id
+
+
+미디에이션 광고 단위 ID (16자리 16진수)
+
+
+9ad0816ac071552a
+
+
+String
+
+</tr>
+
+<tr>
+custom_data (optional)
+
+
+사용자 정의 데이터 (URL 인코딩됨). 문자열 크기를 8192자 미만으로 유지할 것을 권장합니다.
+
+
+my%20custom%20data
+
+
+String
+
+</tr>
+
+<tr>
+key
+
+<td style={{ border:"1px solid #ddd",padding:"8px",wordWrap:"break-word" }}>
+아래 과정을 통해 생성된 키와 비교를 통해 검증 합니다.
+
+1. hmac sha256 '콜백 검증 키'*를 넣고 초기화
+2. transaction_id 를 넣고 digest 생성
+3. 16진수 (hex) 인코딩
+
+</td>
+
+b46635e51e76778ec15856720114c4edd6b6c3c7aeeb2a1b51dc346640cbca45
+
+
+String
+
+</tr>
+
+<tr>
+timestamp
+
+
+광고 로드 시간의 타임스탬프 (정수, Epoch Time)
+
+
+1546300800
+
+
+Int
+
+</tr>
+
+<tr>
+transaction_id
+
+
+고유 트랜잭션 ID, 32자리 16진수
+
+
+0d0f748fcd0d4a4a9f6ac809216564b1
+
+
+String
+
+</tr>
+
+<tr>
+user_id (optional)
+
+
+퍼블리셔가 정의한 사용자 ID (URL 인코딩됨); 최대 길이는 8192자
+
+
+7634657898
+
+
+String
+
+</tr>
+
+</tbody>
+
+</table>
+
 </div>
 
-\* 발급된 콜백 검증 키는 https://dashboard.daro.so/service/account 에서 확인 가능합니다.
+* 발급된 콜백 검증 키는 https://dashboard.daro.so/service/account 에서 확인 가능합니다.
 
 ## 퍼블리셔 정의 User ID, Custom Data 세팅하기
 
