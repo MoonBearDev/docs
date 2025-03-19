@@ -17,7 +17,7 @@
             "group": "다로 시작하기",
             "pages": [
               "before-the-beginning",
-              "app-ads-txt-settings"
+              "get-started/app-ads-txt-settings"
             ]
           },
           {
@@ -121,6 +121,46 @@
                     ]
                   },
                   "sdk-integration/react-native/changelog"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "DARO 사용하기",
+            "pages": [
+              "how-to-use/enter-payment-info",
+              "how-to-use/create-an-app",
+              "how-to-use/manage-an-app",
+              "how-to-use/create-an-ad-unit",
+              "how-to-use/manage-an-ad-unit",
+              "how-to-use/view-report-metrics"
+            ]
+          },
+          {
+            "group": "심화 기능",
+            "pages": [
+              "advanced/s2s-reward-video-callback"
+            ]
+          },
+          {
+            "group": "FAQ",
+            "pages": [
+              {
+                "group": "기술 연동",
+                "pages": [
+                  "faq/integration/check-integration",
+                  "faq/integration/web-app-integration",
+                  "faq/integration/why-ad-not-imp",
+                  "faq/integration/xcode-bitcode-error"
+                ]
+              },
+              {
+                "group": "광고 운영",
+                "pages": [
+                  "faq/operation/block-unwanted-ads",
+                  "faq/operation/how-is-payment-processing-done",
+                  "faq/operation/why-2-days-report",
+                  "faq/operation/why-metrics-fluctuating"
                 ]
               }
             ]
