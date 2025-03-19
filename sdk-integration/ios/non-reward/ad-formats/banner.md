@@ -1,8 +1,9 @@
 ---
-sidebar_position: 1
+title: "배너 광고"
+description: "배너 광고를 구현하는 방법을 알아봅니다."
 ---
 
-# 배너 광고
+
 
 ## 배너 형태 소개
 
@@ -59,51 +60,3 @@ extension ExampleViewController: DaroAdBannerViewDelegate { }
 
 ### DaroAdBannerView 사용 샘플 코드
 
-<details>
-
-<summary>`DaroAdBannerView`를 사용한 전체 구현 예시입니다.</summary>
-
-```swift
-import Daro
-import UIKit
-
-extension DaroAdBannerViewUnit {
-    static let exampleBannerUnit = DaroAdBannerViewUnit(
-        id: "...",
-        name: "...",
-        size: .banner,
-        refreshTimeInterval: 10
-    )
-}
-
-final class DaroExampleViewController: UIViewController {
-    var bannerView = DaroAdBannerView(adUnit: .exampleBannerUnit)
-
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
-        NSLayoutConstraint.activate([
-            bannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bannerView.widthAnchor.constraint(equalToConstant: 320),
-            bannerView.heightAnchor.constraint(equalToConstant: 50),
-            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
-        
-        bannerView.loadAd()
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-```
-
-</details>
