@@ -14,7 +14,7 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "다로 시작하기",
             "pages": [
               "before-the-beginning",
               "quickstart",
@@ -22,14 +22,25 @@
             ]
           },
           {
-            "group": "Essentials",
+            "group": "SDK 통합하기",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "quickstart",
+              {
+                "group": "Android",
+                "icon": "android",
+                "pages": [
+                  "essentials/markdown",
+                  "essentials/code",
+                  "essentials/images"
+                ],
+                "group": "iOS",
+                "icon": "ios",
+                "pages": [
+                  "essentials/settings",
+                  "essentials/navigation",
+                  "essentials/reusable-snippets"
+                ]
+              }
             ]
           }
         ]
