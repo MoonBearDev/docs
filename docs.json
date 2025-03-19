@@ -34,7 +34,7 @@
                   "essentials/images"
                 ],
                 "group": "iOS",
-                "icon": "ios",
+                "icon": "apple",
                 "pages": [
                   "essentials/settings",
                   "essentials/navigation",
