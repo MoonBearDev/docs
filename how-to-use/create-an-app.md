@@ -2,8 +2,6 @@
 sidebar_position: 2
 ---
 
-import createAppDetail from './img/create-app-detail.png';
-
 # 앱 추가하기
 
 DARO를 통해 광고 수익화를 할 앱을 추가합니다. DARO는 하나의 계정에서 여러 앱을 추가하고 수익화하는 것을 지원합니다.
@@ -11,7 +9,6 @@ DARO를 통해 광고 수익화를 할 앱을 추가합니다. DARO는 하나의
 앱을 추가하려면,
 
 1. Apps > ‘앱 추가’ 버튼을 누르고 ‘Create App’ 화면으로 이동합니다.
-    <img src={createAppDetail} alt="DARO create app detail view" style={{width: "100%"}}/>
 
 2. 추가를 원하는 플랫폼, 개발 환경을 선택하고 스토어 URL과 앱 이름을 입력합니다.
     - 앱 플랫폼은 Android와 iOS를 선택할 수 있으며, 양 OS 모두 개발되어 있다면 각각 생성해서 별도로 관리해야 합니다.

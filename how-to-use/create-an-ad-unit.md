@@ -2,8 +2,6 @@
 sidebar_position: 4
 ---
 
-import createAdUnitDetail from './img/create-ad-unit-detail.png';
-
 # 광고 단위 추가하기
 
 앱에 적용하려는 광고 형태에 맞게 광고 단위를 추가하세요. 여기서 추가한 광고 단위를 앱 광고 지면에 적용하면 광고를 송출할 수 있습니다.
@@ -12,7 +10,6 @@ import createAdUnitDetail from './img/create-ad-unit-detail.png';
 광고 단위를 추가하려면,
 
 1. DARO 대시보드에서 Ad Units > ‘광고 단위 추가’ 버튼을 누르세요.
-    <img src={createAdUnitDetail} alt="DARO create ad unit detail view" style={{width: "100%"}}/>
 
 2. 광고 단위 이름을 작성하고 광고 형태를 선택합니다.
     - 광고 단위를 구성할 때에 네이밍 컨벤션을 신경쓰는 것이 좋습니다. DARO는 기본적으로 광고 단위가 갖고 있는 정보들이 언더바(_)로 구분되게끔 소문자(lowercase)로 작성하여 appname_os_adformat_placement와 같이 네이밍하는 것을 권장합니다.
