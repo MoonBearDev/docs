@@ -31,7 +31,9 @@
                   "essentials/markdown",
                   "essentials/code",
                   "essentials/images"
-                ],
+                ]
+              },
+              {
                 "group": "iOS",
                 "icon": "apple",
                 "pages": [
