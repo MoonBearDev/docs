@@ -1,0 +1,62 @@
+---
+sidebar_position: 4
+---
+
+# 인터스티셜 광고
+
+## 인터스티셜 형태 소개
+
+- 화면 전체를 덮는 형태로 노출되는 광고입니다.
+- 이미지/동영상 모두 포함되나 동영상 소재가 더 많이 노출되며 일반적으로 5초 후부터 스킵이 가능합니다.
+
+---
+
+## 광고 단위 설정
+
+대시보드에서 발급받은 `ad unit ID`를 사용하여 광고 단위를 설정하세요.
+
+```swift
+extension DaroAdInterstitialUnit {
+    static let betaUnit = DaroAdInterstitialUnit(id: "ca-app-pub-...")
+}
+```
+
+## 인터스티셜 광고 구현
+
+<details>
+<summary>
+인터스티셜 광고를 로드하고 표시하기 위한 코드 예제입니다.
+</summary>
+
+
+```swift
+import Daro
+import GoogleMobileAds
+
+class ExampleViewController: UIViewController {
+	...
+	Task { @MainActor in
+	    try await DaroInterstitialAdProvider.shared.load(adUnit: .aphaUnit, delegate: self)
+	
+	    DaroInterstitialAdProvider.shared.presentIfLoaded(from: self)
+	}
+	...
+}
+
+extension ExampleViewController: GADFullScreenContentDelegate {
+
+    func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
+        print("\(#function)")
+    }
+
+    func adDidRecordClick(_ ad: GADFullScreenPresentingAd) {
+        print("\(#function)")
+    }
+
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("\(#function)")
+    }
+}
+```
+
+</details>

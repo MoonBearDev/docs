@@ -1,0 +1,104 @@
+---
+sidebar_position: 3
+---
+
+# 네이티브 광고
+
+## 네이티브 형태 소개
+
+- 광고 뷰를 미디에이션 SDK가 구현해주는 타 광고 형태와 달리 네이티브 광고 형태는 구성 요소들을 전달받아 앱에서 직접 광고 뷰를 구현합니다.
+- UIUX 기반으로 레이아웃을 직접 구현하므로써 위화감을 적게 만들 수 있다는 것이 가장 큰 특징입니다. 단, 유저가 광고가 아닌 컨텐츠로써 착각하는 경우를 방지하기 위해 광고 표시와 함께 최소한의 차별성은 부여해야합니다.
+
+---
+
+## View 생성하기
+
+1. `DaroMNativeView` 를 생성합니다.
+
+   1. XML 사용시
+
+      ```kotlin
+      <?xml version="1.0" encoding="utf-8"?>
+      ...
+        <droom.daro.m.nativead.DaroMNativeView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+      ...
+      ```
+
+   2. 코드 내부에서 생성 시
+
+   ```kotlin
+   val nativeView = DaroMAdNativeView(context)
+   ```
+
+2. 뷰에 필요한 설정들을 정의합니다.
+
+   ```kotlin
+   nativeView.apply{
+   	autoDestroy = ...
+
+   	setListener(object: DaroMAdView.DaroMAdViewListener{
+   		...
+   	})
+   }
+   ```
+
+   1. 뷰를 선언하면 자체적으로 화면에 맞는 라이프사이클을 찾아 동작을 관리합니다. 따로 resume, pause, destroy를 호출하지 않아도 됩니다.
+      1. `autoDestroy` 값을 false(default: true)로 설정하는 경우, destroy를 직접 호출해주셔야 합니다.
+   2. `setListener` 를 통해서 광고뷰에 리스너를 추가할 수 있습니다.
+
+## 광고 그리기
+
+1. 광고를 받아서 어떻게 그릴지 정의하는 DaroMNativeBinder 를 추가합니다.
+
+   ```kotlin
+
+   // layoutId로 추가하는 경우
+   nativeView.setAdBinder(
+   	DaroMNativeBinder.Builder(this, ${layoutId})
+       .setTitleTextViewId(${titleViewId})
+       .setBodyTextViewId(${bodyViewId})
+       .setStarRatingContentViewGroupId(${starRatingViewId})
+       .setAdvertiserTextViewId(${advertiserViewId})
+       .setIconImageViewId(${iconViewId})
+       .setMediaContentViewGroupId(${mediaViewId})
+       .setCallToActionButtonId(${callToActionViewId})
+       .build()
+   )
+
+   // 뷰 객체를 통해 추가하는 경우
+    nativeView.setAdBinder(
+   	DaroMNativeBinder.Builder(this, ${view})
+       .setTitleTextViewId(${titleViewId})
+       .setBodyTextViewId(${bodyViewId})
+       .setStarRatingContentViewGroupId(${starRatingViewId})
+       .setAdvertiserTextViewId(${advertiserViewId})
+       .setIconImageViewId(${iconViewId})
+       .setMediaContentViewGroupId(${mediaViewId})
+       .setCallToActionButtonId(${callToActionViewId})
+       .build()
+   )
+   ```
+
+2. `load()` 메서드를 호출합니다.
+
+   ```kotlin
+   nativeView.load(
+       DaroMAdNativeUnit(
+         unitId = ${unitId},
+         placementName = ${placementName}, //로그 상 보여질 이름입니다. 공백을 보내도 무관합니다.
+         refreshSeconds = 3
+       )
+   )
+   ```
+
+   - load 호출 전에 반드시 1의 과정을 통해 DaroMNativeBinder를 선언해주어야 합니다.
+
+### 안내사항
+
+1. placementName은 지면별 이름으로 Daro 로그에 표시될 이름을 설정합니다. 공백을 보내도 무관합니다.
+2. refreshSeconds는 새로고침 시간을 초 단위로 설정합니다.
+
+💡 새로고침을 원하지 않을 경우 `0` 을 설정해주세요.

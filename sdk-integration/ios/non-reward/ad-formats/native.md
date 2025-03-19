@@ -1,0 +1,328 @@
+---
+sidebar_position: 3
+---
+
+import nativeLargeAdExample from './img/daro-ios-large-native.jpeg';
+import nativeLineAdExample from './img/daro-ios-line-native.jpeg';
+
+# 네이티브 광고
+
+## 네이티브 형태 소개
+
+<img src={nativeLargeAdExample} alt="native ad example" style={{width: "30%"}}/>
+
+- 광고 뷰를 미디에이션 SDK가 구현해주는 타 광고 형태와 달리 네이티브 광고 형태는 구성 요소들을 전달받아 앱에서 직접 광고 뷰를 구현합니다.
+- UI/UX 기반으로 레이아웃을 직접 구현하므로써 위화감을 적게 만들 수 있다는 것이 가장 큰 특징입니다. 단, 유저가 광고가 아닌 컨텐츠로써 착각하는 경우를 방지하기 위해 광고 표시와 함께 최소한의 차별성은 부여해야합니다.
+
+---
+
+## 광고 단위 설정
+
+대시보드에서 발급받은 `ad unit ID`를 사용하여 광고 단위를 설정하세요.
+
+```swift
+extension DaroNativeAdUnit {
+    static let native = DaroNativeAdUnit(
+        id: "...",
+        name: "...",
+        refreshTimeInterval: 10
+    )
+}
+```
+
+## 구현
+
+1. DaroNativeAdContentView 를 상속하는 뷰를 구현합니다. 원하는 뷰의 구조에 따라 특정 뷰들은 사용하지 않아도 됩니다.
+- 예를들어 starRatingLabel 이나, storeLabel 등은 네이티브 광고 템플릿에 따라 사용하지 않아도 됩니다.
+
+<details>
+<summary>DaroNativeAdContentView 샘플 코드</summary>
+
+```swift
+
+final class DaroExampleNativeAdContentView: DaroNativeAdContentView {
+
+    var containerView = UIView()
+
+    /// IconView
+    var iconImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
+        view.isHidden = true
+        return view
+    }()
+
+    /// Headline
+    var headlineLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.textColor = UIColor.white
+        label.numberOfLines = 2
+        return label
+    }()
+
+    /// Advertiser View
+    var advertiserLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 2
+        label.textColor = UIColor.white
+        return label
+    }()
+
+    /// Star Rating
+    var starRatingLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 2
+        label.textColor = UIColor.white
+        return label
+    }()
+
+    /// Media View
+    var mediaView = DaroMediaView()
+
+    /// Call to Action
+    var callToActionButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
+        button.clipsToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = UIColor.systemGray3
+        button.layer.cornerRadius = 4
+        return button
+    }()
+
+    /// Body
+    var bodyLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.numberOfLines = 2
+        label.textColor = UIColor.white
+        return label
+    }()
+
+    /// Store View
+    var storeLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 2
+        label.textColor = UIColor.white
+        return label
+    }()
+
+    /// Price View
+    var priceLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 2
+        label.textColor = UIColor.white
+        return label
+    }()
+
+    required init() {
+        super.init()
+        layout()
+
+        bindViews(
+            headlineLabel: headlineLabel,
+            callToActionButton: callToActionButton,
+            iconImageView: iconImageView,
+            bodyLabel: bodyLabel,
+            storeLabel: storeLabel,
+            priceLabel: priceLabel,
+            starRating: starRatingLabel,
+            advertiserLabel: advertiserLabel,
+            mediaView: mediaView
+        )
+
+        activateLayout()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func layout() {
+        translatesAutoresizingMaskIntoConstraints = false
+        let blurEffect = UIBlurEffect(style: .systemMaterialDark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.isUserInteractionEnabled = false
+        containerView.addSubview(blurView)
+        blurView.anchorToSuperview()
+        containerView.clipsToBounds = true
+        containerView.isUserInteractionEnabled = false
+
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.anchorToSuperview()
+
+        [
+            mediaView,
+            iconImageView,
+            headlineLabel,
+            advertiserLabel,
+            starRatingLabel,
+            bodyLabel,
+            storeLabel,
+            priceLabel,
+            callToActionButton,
+        ]
+        .forEach {
+            $0.removeFromSuperview()
+            containerView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        activateLayout()
+    }
+
+    func activateLayout() {
+        NSLayoutConstraint.activate([
+            iconImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            iconImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10),
+            iconImageView.heightAnchor.constraint(equalToConstant: 70),
+            iconImageView.widthAnchor.constraint(equalToConstant: 70),
+
+            headlineLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor),
+            headlineLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
+            headlineLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
+
+            starRatingLabel.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 8),
+            starRatingLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
+
+            advertiserLabel.bottomAnchor.constraint(equalTo: iconImageView.bottomAnchor),
+            advertiserLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
+
+            bodyLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 10),
+            bodyLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10),
+            bodyLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
+
+            priceLabel.centerYAnchor.constraint(equalTo: storeLabel.centerYAnchor),
+            priceLabel.rightAnchor.constraint(equalTo: storeLabel.leftAnchor, constant: -10),
+
+            callToActionButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            callToActionButton.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
+            callToActionButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -20),
+
+            storeLabel.bottomAnchor.constraint(equalTo: callToActionButton.topAnchor, constant: -10),
+            storeLabel.rightAnchor.constraint(equalTo: callToActionButton.rightAnchor),
+
+            mediaView.heightAnchor.constraint(equalTo: containerView.heightAnchor),
+            mediaView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            mediaView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            mediaView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+        ])
+    }
+}
+
+```
+
+</details>
+
+
+
+2. DaroNativeAdView 를 초기화 할때 DaroNativeAdContentView 를 전달합니다.
+
+<details>
+<summary>DaroNativeAdView 샘플 코드</summary>
+
+```swift
+public final class DaroExampleNativeAdView: UIView {
+
+    var nativeAdView: DaroNativeAdView
+
+    public init(adUnit: DaroNativeAdUnit) {
+        nativeAdView = DaroNativeAdView(
+            adUnit: adUnit,
+            nativeAdContentViewType: DaroLargeNativeAdContentView.self
+        )
+        super.init(frame: .zero)
+        layout()
+        nativeAdView.delegate = self
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+
+    public func loadAd() {
+        nativeAdView.loadAd()
+    }
+
+    private func layout() {
+        translatesAutoresizingMaskIntoConstraints = false
+        nativeAdView.removeFromSuperview()
+        addSubview(nativeAdView)
+        nativeAdView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nativeAdView.leftAnchor.constraint(equalTo: leftAnchor),
+            nativeAdView.rightAnchor.constraint(equalTo: rightAnchor),
+            nativeAdView.topAnchor.constraint(equalTo: topAnchor),
+            nativeAdView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+}
+
+
+extension DaroExampleNativeAdView: DaroNativeAdDelegate {
+    public func nativeAdDidRecordClick(_ nativeAd: DaroNativeAd) { }
+    public func nativeAdDidRecordImpression(_ nativeAd: DaroNativeAd) { }
+    public func nativeAdDidRecordSwipeGestureClick(_ nativeAd: DaroNativeAd) { }
+    public func nativeAdDidDismissScreen(_ nativeAd: DaroNativeAd) { }
+    public func nativeAdWillDismissScreen(_ nativeAd: DaroNativeAd) { }
+    public func nativeAdWillPresentScreen(_ nativeAd: DaroNativeAd) { }
+    public func nativeAdWillPresentScreen(_ nativeAd: DaroNativeAd) { }
+}
+```
+
+</details>
+
+
+## 네이티브 광고 템플릿
+
+- 두 가지 템플릿을 제공합니다.
+
+### Large 타입
+
+- 모든 하위 뷰가 다 들어간 크기의 네이티브 광고 입니다.
+
+```swift
+let largeNativeAdView = DaroLargeNativeAdView(adUnit: adUnit)
+largeNativeAdView.loadAd()
+```
+
+- 샘플 이미지
+
+<img src={nativeLargeAdExample} alt="native ad example" style={{width: "30%"}}/>
+
+### Text 타입
+
+- GNB 하단 등 텍스트 형태만 보여줄 때 사용할 수 있습니다.
+
+```swift
+let lineNativeAdView = DaroLineNativeAdView(adUnit: adUnit)
+lineNativeAdView.loadAd()
+```
+
+- 샘플 이미지
+
+<img src={nativeLineAdExample} alt="native ad example" style={{width: "30%"}}/>

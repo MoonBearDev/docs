@@ -1,0 +1,50 @@
+---
+sidebar_position: 4
+---
+
+# Changelog
+
+## 0.4.4
+
+2025-02-27
+
+- CallbackUrl 옵션 대응 추가
+
+---
+
+## 0.4.3
+
+2025-02-10
+
+- Admob native impression 안찍히는 동작 개선
+- 메모리 이슈 개선
+
+---
+
+## 0.4.2
+
+2025-01-17
+
+- DT Exchange adapter 추가
+
+---
+
+## 0.4.1
+
+- DT Exchane 어댑터 제거
+
+## 0.4.0
+
+- SDK 사용시 `플러그인(droom.daro.a)`, `daro-service.json` 를 필요로 하게 변경
+  - 연동 간 키값 넣어주는 부분 자동으로 처리
+- ErrorMessage 대신 에러 클래스 객체 반환 추가
+
+## 0.1.6
+
+- `DaroMNativeBinder` 생성 시 layoutId 대신 뷰 객체로도 생성할 수 있도록 변경
+- 광고 뷰에 수동으로 호출 가능한 `resume`, `pause`, `destroy` 메서드 추가
+
+## 0.1.5
+
+- `DaroInitializeParams` 내부 필드명 변경
+  - `applovinSdkKey` -> `sdkKey`

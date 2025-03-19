@@ -1,0 +1,96 @@
+---
+sidebar_position: 2
+---
+
+# MREC 광고
+
+## MREC 형태 소개
+
+- 배너 형태 중 300x250 사이즈를 따로 MREC으로 구분하여 부릅니다.
+- 전반적으로 배너와 동일한 특성을 가집니다.
+
+---
+
+## 광고 단위 설정
+
+대시보드에서 발급받은 `ad unit ID`를 사용하여 광고 단위를 설정하세요.
+
+```swift
+extension DaroAdBannerViewUnit {
+    static let mrec = DaroAdBannerViewUnit(
+        id: "...",
+        name: "...",
+        size: .iabMediumRectangle,
+        refreshTimeInterval: 10
+    )
+}
+```
+
+## 배너 광고 구현
+
+### 기본 구현
+
+배너 광고를 로드하고 표시하기 위한 코드 예제입니다.
+
+```swift
+// 뷰 선언
+var bannerView = DaroAdBannerView(adUnit: .mrec)
+
+// 로드 호출
+bannerView.loadAd()
+
+// 필요한 경우 delegate 사용
+bannerView.delegate = self
+extension ExampleViewController: DaroAdBannerViewDelegate { }
+```
+
+### DaroAdBannerView 사용 샘플 코드
+
+<details>
+
+<summary>`DaroAdBannerView`를 사용한 전체 구현 예시입니다.</summary>
+
+```swift
+import Daro
+import UIKit
+
+extension DaroAdBannerViewUnit {
+    static let exampleBannerUnit = DaroAdBannerViewUnit(
+        id: "...",
+        name: "...",
+        size: .iabMediumRectangle,
+        refreshTimeInterval: 10
+    )
+}
+
+final class DaroExampleViewController: UIViewController {
+    var bannerView = DaroAdBannerView(adUnit: .exampleBannerUnit)
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        NSLayoutConstraint.activate([
+            bannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bannerView.widthAnchor.constraint(equalToConstant: 320),
+            bannerView.heightAnchor.constraint(equalToConstant: 50),
+            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        
+        bannerView.loadAd()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+```
+
+</details>

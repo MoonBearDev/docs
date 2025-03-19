@@ -1,0 +1,39 @@
+---
+sidebar_position: 5
+---
+
+# 리워드 비디오 광고
+
+## 리워드 비디오 형태 소개
+
+- 광고 시청을 대가로 인앱 가치를 지닌 보상(재화, 기능, 컨텐츠 등)을 제공하는 형태의 광고입니다.
+- 보상을 대가로 시청하므로 동영상 광고의 스킵이 불가능하며 일반적인 길이는 30초입니다.
+
+---
+
+## 광고 단위 설정
+
+대시보드에서 발급받은 `ad unit ID`를 사용하여 광고 단위를 설정하세요.
+
+```swift
+extension DaroAdRewardedUnit {
+    static let betaUnit = DaroAdRewardedUnit(id: "ca-app-pub-...")
+}
+```
+
+## 리워드 비디오 광고 구현
+
+리워드 비디오 광고를 로드하고 표시하기 위한 코드 예제입니다.
+
+```swift
+import Daro
+
+Task { @MainActor in
+    // 로딩 시작
+    try await DaroRewardedAdProvider.shared.load(adUnit: .rewarded)
+    // 로딩 끝
+    DaroRewardedAdProvider.shared.presentIfLoaded(from: self) { [weak self] in
+		    // 보상 처리
+    }
+}
+```

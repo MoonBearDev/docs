@@ -1,0 +1,200 @@
+---
+sidebar_position: 5
+---
+
+# 리워드 비디오 광고
+
+## 리워드 비디오 형태 소개
+
+- 광고 시청을 대가로 인앱 가치를 지닌 보상(재화, 기능, 컨텐츠 등)을 제공하는 형태의 광고입니다.
+- 보상을 대가로 시청하므로 동영상 광고의 스킵이 불가능하며 일반적인 길이는 30초입니다.
+
+---
+
+## 광고 로드하기
+
+`RewardedAd.loadAd(unitId)`를 통해서 광고를 load할 수 있습니다.
+
+```javascript
+import { RewardedAd } from "react-native-daro-m";
+import { AdInfo, AdLoadFailedInfo, AdRevenueInfo } from "react-native-daro-m";
+
+
+const initializeRewardedAds = () => {
+  RewardedAd.addAdLoadedEventListener((adInfo: AdInfo) => { ... });
+  RewardedAd.addAdLoadFailedEventListener((errorInfo: AdLoadFailedInfo) => { ... });
+  RewardedAd.addAdClickedEventListener((adInfo: AdInfo) => { ... });
+  RewardedAd.addAdDisplayedEventListener((adInfo: AdInfo) => { ... });
+  RewardedAd.addAdFailedToDisplayEventListener((adInfo: AdDisplayFailedInfo) => { ... });
+  RewardedAd.addAdHiddenEventListener((adInfo: AdInfo) => { ... });
+  RewardedAd.addAdReceivedRewardEventListener((adInfo: AdRewardInfo) => { ... });
+  RewardedAd.addAdImpressionRecordedListener((adInfo: AdRevenueInfo) => { ... });
+
+  // Load the first rewarded ad
+  loadRewardedAd();
+}
+
+const loadRewardedAd = () => {
+  RewardedAd.loadAd(REWARDED_AD_UNIT_ID);
+}
+```
+
+## 광고 보여주기
+
+`RewardedAd.showAd(unitId)`를 통해서 로드한 광고를 보여줄 수 있습니다.
+
+```javascript
+const isRewardedReady = await RewardedAd.isAdReady(REWARDED_AD_UNIT_ID);
+
+if (isInterstitialReady) {
+  RewardedAd.showAd(REWARDED_AD_UNIT_ID);
+}
+```
+
+### 구현 예시
+
+<details>
+
+ <summary>`RewardedAd` 구현 예시입니다.</summary>
+
+```javascript
+
+import { useEffect, useRef, useState } from "react";
+import { StyleSheet } from "react-native";
+import { AdInfo, AdLoadFailedInfo, AdRevenueInfo } from "react-native-daro-m";
+import { RewardedAd } from "react-native-daro-m";
+import { ThemedButton } from "../ThemedButton";
+
+const MAX_EXPONENTIAL_RETRY_COUNT = 6;
+
+enum AdLoadState {
+  notLoaded = 'NOT_LOADED',
+  loading = 'LOADING',
+  loaded = 'LOADED',
+}
+
+type Props = {
+  adUnitId: string;
+  isInitialized: boolean;
+  log: (str: string) => void;
+};
+
+const RewardedAdExample = ({ adUnitId, isInitialized, log }: Props) => {
+  const [adLoadState, setAdLoadState] = useState<AdLoadState>(AdLoadState.notLoaded);
+
+  const retryAttempt = useRef(0);
+
+  useEffect(() => {
+    RewardedAd.addAdLoadedEventListener((adInfo: AdInfo) => {
+      setAdLoadState(AdLoadState.loaded);
+
+      log('Rewarded ad loaded from ' + adInfo.networkName);
+
+      // Reset retry attempt
+      retryAttempt.current = 0;
+    });
+
+    RewardedAd.addAdLoadFailedEventListener((errorInfo: AdLoadFailedInfo) => {
+      setAdLoadState(AdLoadState.notLoaded);
+
+      if (retryAttempt.current > MAX_EXPONENTIAL_RETRY_COUNT) {
+        log('Rewarded ad failed to load with code ' + errorInfo.code);
+        return;
+      }
+
+      // Rewarded ad failed to load
+      // We recommend retrying with exponentially higher delays up to a maximum delay (in this case 64 seconds)
+      retryAttempt.current += 1;
+
+      const retryDelay = Math.pow(2, Math.min(MAX_EXPONENTIAL_RETRY_COUNT, retryAttempt.current));
+      log('Rewarded ad failed to load with code ' + errorInfo.code + ' - retrying in ' + retryDelay + 's');
+
+      setTimeout(() => {
+        setAdLoadState(AdLoadState.loading);
+        log('Rewarded ad retrying to load...');
+        RewardedAd.loadAd(adUnitId);
+      }, retryDelay * 1000);
+    });
+
+    RewardedAd.addAdClickedEventListener((/* adInfo: AdInfo */) => {
+      log('Rewarded ad clicked');
+    });
+    RewardedAd.addAdDisplayedEventListener((/* adInfo: AdInfo */) => {
+      log('Rewarded ad displayed');
+    });
+    RewardedAd.addAdFailedToDisplayEventListener((/* adInfo: AdDisplayFailedInfo */) => {
+      setAdLoadState(AdLoadState.notLoaded);
+      log('Rewarded ad failed to display');
+    });
+    RewardedAd.addAdHiddenEventListener((/* adInfo: AdInfo */) => {
+      setAdLoadState(AdLoadState.notLoaded);
+      log('Rewarded ad hidden');
+    });
+    RewardedAd.addAdReceivedRewardEventListener((/* adInfo: AdRewardInfo */) => {
+      log('Rewarded ad granted reward');
+    });
+    RewardedAd.addAdImpressionRecordedListener((adInfo: AdRevenueInfo) => {
+      log('Rewarded ad revenue paid: ' + adInfo.revenue);
+    });
+  }, [adUnitId, log]);
+
+  const getRewardedButtonTitle = () => {
+    if (adLoadState === AdLoadState.notLoaded) {
+      return 'Load Rewarded';
+    } else if (adLoadState === AdLoadState.loading) {
+      return 'Loading...';
+    } else {
+      return 'Show Rewarded'; // adLoadState.loaded
+    }
+  };
+
+  return (
+    <ThemedButton
+      isLoading={adLoadState === AdLoadState.loading}
+      isEnabled={isInitialized && adLoadState !== AdLoadState.loading}
+      title={getRewardedButtonTitle()}
+      onPress={async () => {
+        const isRewardedReady = await RewardedAd.isAdReady(adUnitId);
+        if (isRewardedReady) {
+          log('Rewarded ad ready to show');
+          RewardedAd.showAd(adUnitId);
+        } else {
+          log('Loading rewarded ad...');
+          setAdLoadState(AdLoadState.loading);
+          RewardedAd.loadAd(adUnitId);
+        }
+      }}
+    />
+  );
+}
+
+
+const styles = StyleSheet.create({
+  button: {
+    margin: 5,
+  },
+});
+
+export default RewardedAdExample;
+```
+
+</details>
+
+## 리워드 비디오 광고 콜백 메서드
+
+- 다음 코드는 사용자의 내부 User ID를 태그하고, 콜백에 CustomData를 추가하는 방법을 보여줍니다.
+  - User ID 문자열의 최대 크기는 8192자입니다.
+
+```javascript
+
+setUserId("${USER_ID}");
+
+...
+
+const isRewardedReady = await RewardedAd.isAdReady(REWARDED_AD_UNIT_ID);
+
+if (isInterstitialReady) {
+  RewardedAd.showAd(REWARDED_AD_UNIT_ID. "${CUSTOM_DATA}");
+}
+
+```

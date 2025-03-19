@@ -1,0 +1,109 @@
+---
+sidebar_position: 2
+---
+
+# MREC 광고
+
+## MREC 형태 소개
+
+- 배너 형태 중 300x250 사이즈를 따로 MREC으로 구분하여 부릅니다.
+- 전반적으로 배너와 동일한 특성을 가집니다.
+
+---
+
+## 광고 단위 설정
+
+대시보드에서 발급받은 `ad unit ID`를 사용하여 광고 단위를 설정하세요.
+
+```swift
+extension DaroMAdViewUnit {
+    static let timerBanner = DaroMAdViewUnit(
+        adUnitID: "...",
+        name: "...", // Optional
+        format: .mrec,
+        refreshTimeInterval: 7
+    )
+}
+```
+
+*APS 광고 네트워크를 사용하지 않으시는 경우, 배너 타입에서 SlotUUID 값은 제거해주셔도 무방합니다.
+
+
+## 배너 광고 구현
+
+### 기본 구현
+
+배너 광고를 로드하고 표시하기 위한 코드 예제입니다.
+
+```swift
+// 뷰 선언
+// highlight-next-line
+var bannerView = DaroMAdView(DaroMAdViewUnit.timerBanner)
+
+// 로드 호출
+// highlight-next-line
+bannerView.loadAd()
+
+// (Optional) 필요한 경우 delegate 사용
+bannerView.delegate = self
+
+extension ExampleViewController: DaroMAdViewDelegate {
+    func didExpand(_ ad: DaroM.DaroMAd) { }
+    func didCollapse(_ ad: DaroM.DaroMAd) { }
+    func didFailToDisplay(ad: DaroM.DaroMAd, with error: DaroM.DaroMError) { }
+    func didStartAdRequest(for adUnitIdentifier: String) { }
+    func didLoad(_ ad: DaroM.DaroMAd) { }
+    func didFailToLoadAd(for adUnitIdentifier: String, with error: DaroM.DaroMError) { }
+}
+
+```
+
+### DaroMAdView 사용 샘플 코드
+
+<details>
+
+ <summary>`DaroMAdView`를 사용한 MREC 형태 전체 구현 예시입니다.</summary>
+
+```swift
+import DaroM
+import UIKit
+
+extension DaroMAdViewUnit {
+    static let timerBanner = DaroMAdViewUnit(
+        adUnitID: "...",
+        name: "...", // Optional
+        format: .mrec,
+        refreshTimeInterval: 7
+    )
+}
+
+final class DaroExampleViewController: UIViewController {
+    var bannerView = DaroMAdView(DaroMAdViewUnit.timerBanner)
+
+    init() {
+      super.init(nibName: nil, bundle: nil) 
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        NSLayoutConstraint.activate([
+            bannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bannerView.widthAnchor.constraint(equalToConstant: 300),
+            bannerView.heightAnchor.constraint(equalToConstant: 250),
+            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        // highlight-next-line
+        bannerView.loadAd()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+```
+
+</details>

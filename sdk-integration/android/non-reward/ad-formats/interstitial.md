@@ -1,0 +1,62 @@
+---
+sidebar-position: 4
+---
+
+# 인터스티셜 광고
+
+## 인터스티셜 형태 소개
+
+- 화면 전체를 덮는 형태로 노출되는 광고입니다.
+- 이미지/동영상 모두 포함되나 동영상 소재가 더 많이 노출되며 일반적으로 5초 후부터 스킵이 가능합니다.
+
+---
+
+## Loader 생성하기
+
+```kotlin
+val interstitialLoader = DaroInterstitialAdLoader(
+    adInterstitialUnit = DaroAdInterstitialUnit(
+      unitId = ${unitId},
+      placementName = ${placementName}, //로그 상 보여질 이름입니다. 공백을 보내도 무관합니다.
+    ),
+  )
+```
+
+## 광고 로드 및 그리기
+
+1. `load()` 를 호출하면 onSuccess를 콜백을 통해서 [`DaroInterstitialAd`](https://delightroom.github.io/daro-android-docs/daro/droom.daro.lib.interstitial/-daro-interstitial-ad/index.html) 를 얻을 수 있습니다.
+
+   ```kotlin
+   interstitialLoader.load(
+     context = this,
+     onSuccess = { ad ->
+       ...
+     },
+     onFailure = { err ->
+       ...
+     }
+   )
+   ```
+
+2. onSuccess 에서 받아온 [`DaroInterstitialAd`](https://delightroom.github.io/daro-android-docs/daro/droom.daro.lib.interstitial/-daro-interstitial-ad/index.html)에 `show()` 를 호출을 통해서 광고를 보여줄 수 있습니다.
+
+   ```kotlin
+   ad.show(
+     activity = ...,
+     object : DaroInterstitialAdListener {
+       override fun onFailedToShow(errorMsg: String) {
+       }
+
+       override fun onShown() {
+       }
+
+       override fun onDismiss() {
+       }
+
+       override fun onImpression() {
+       }
+     })
+   )
+   ```
+
+   `DaroInterstitialAdListener`를 통해서 광고 표시, 리워드 획득 등을 관리할 수 있습니다.

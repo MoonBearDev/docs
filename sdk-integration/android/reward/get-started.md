@@ -1,0 +1,207 @@
+---
+sidebar_position: 1
+---
+
+# 시작하기
+
+![Android](https://img.shields.io/badge/Daro_Android_SDK-v0.4.4-3DDC84?logo=android&logoColor=white)
+
+Daro Android SDK를 앱에 통합하는 방법에 대해 안내합니다.
+
+---
+
+## 시작하기 전에
+
+프로젝트에 Daro SDK를 통합하기 전에 필요한 사항들을 확인하세요.
+
+### 요구사항
+
+- 안드로이드 minSdkVersion : 24
+
+## 앱 설정하기
+
+### 프로젝트 단위 빌드 설정
+
+1. settings.gradle 파일에 maven repository 들을 추가합니다.
+
+   - build.gradle.kotlin (Kotlin)
+
+     ```kotlin
+     dependencyResolutionManagement {
+         ...
+         repositories {
+             google()
+             mavenCentral()
+             ...
+
+             maven {
+                 url = uri("https://jitpack.io")
+             }
+             maven {
+                 url = uri("https://android-sdk.is.com")
+             }
+             maven {
+                 url = uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea")
+             }
+             maven {
+                 url = uri("https://maven.ogury.co")
+             }
+             maven {
+                 url = uri("https://artifact.bytedance.com/repository/pangle")
+             }
+             maven {
+                 url = uri("https://s3.amazonaws.com/smaato-sdk-releases/")
+             }
+             maven {
+                 url = uri("https://verve.jfrog.io/artifactory/verve-gradle-release")
+             }
+         }
+     }
+     ```
+
+   - build.gradle (Groovy)
+     ```groovy
+     allprojects {
+         ...
+         repositories {
+             ...
+             maven {
+                 url "https://jitpack.io"
+             }
+             maven {
+                 url "https://android-sdk.is.com"
+             }
+             maven {
+                 url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
+             }
+             maven {
+                 url "https://maven.ogury.co"
+             }
+             maven {
+                 url "https://artifact.bytedance.com/repository/pangle"
+             }
+             maven {
+                 url "https://s3.amazonaws.com/smaato-sdk-releases/"
+             }
+             maven {
+                 url "https://verve.jfrog.io/artifactory/verve-gradle-release"
+             }
+         }
+     ```
+
+2. build.gradle(root) 파일에 buildScript를 추가합니다.
+
+   - build.gradle (Groovy)
+
+     ```groovy
+     buildscript {
+         repositories {
+             google()
+             mavenCentral()
+             maven { url "https://artifacts.applovin.com/android" }
+             maven { url "https://jitpack.io" }
+         }
+         dependencies {
+             classpath 'com.applovin.quality:AppLovinQualityServiceGradlePlugin:5.5.2'
+             classpath 'com.github.delightroom:daro-android-plugin:0.3.0'
+         }
+     }
+     ```
+
+   - build.gradle.kotlin (Kotlin)
+
+     ```kotlin
+     buildscript {
+         repositories {
+             google()
+             mavenCentral()
+             maven { url = uri("https://artifacts.applovin.com/android") }
+             maven { url = uri("https://jitpack.io") }
+         }
+         dependencies {
+             classpath("com.applovin.quality:AppLovinQualityServiceGradlePlugin:5.5.2")
+             classpath("com.github.delightroom:daro-android-plugin:0.3.0")
+         }
+     }
+     ```
+
+<br />
+
+### 모듈 단위 빌드 설정
+
+1. Daro SDK를 추가합니다. (latest: `0.4.4`)
+
+   - build.gradle.kotlin (Kotlin)
+
+     ```kotlin
+     plugins {
+         ...
+         id("droom.daro.m")
+         ...
+     }
+
+     dependencies {
+         ...
+         implementation("com.github.delightroom:daro-android-m:${version}")
+         ...
+     }
+     ```
+
+   - build.gradle (Groovy)
+
+     ```groovy
+     plugins {
+         ...
+         id 'droom.daro.m'
+         ...
+     }
+
+     dependencies {
+         ...
+         implementation 'com.github.delightroom:daro-android-m:${version}'
+         ...
+     }
+     ```
+
+2. rootProject에 daro-service.json 파일을 추가합니다.
+
+   ```
+   ${rootProject}/
+   ├── app/
+   │
+   ...
+   │
+   ├── daro-serivce.json
+
+   ```
+
+   :::note
+   `daro-service.json` 파일은 DARO 대시보드에서 앱을 등록하고 앱 리스트 표의 맨 오른쪽 Key File 열에서 Download 버튼 클릭하여 다운로드 받을 수 있습니다.
+   :::
+
+---
+
+## SDK 초기화하기
+
+```kotlin
+import android.app.Application
+import droom.daro.lib.Daro
+import droom.daro.lib.DaroNetworkConfiguration
+import droom.daro.lib.util.logger.DaroLogLevel
+import kotlinx.coroutines.CoroutineScope
+
+class SampleApp: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        Daro.init(
+            application = this@SampleApp,
+        )
+    }
+}
+```
+
+💡 빠른 SDK 초기화를 위해 앱의 첫 진입점인 Application 파일 onCreate 내에서 Daro SDK를 초기화하는 것을 권장합니다.
+
+<br />

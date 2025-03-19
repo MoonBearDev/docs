@@ -1,0 +1,182 @@
+---
+sidebar_position: 4
+---
+
+# 인터스티셜 광고
+
+## 인터스티셜 형태 소개
+
+- 화면 전체를 덮는 형태로 노출되는 광고입니다.
+- 이미지/동영상 모두 포함되나 동영상 소재가 더 많이 노출되며 일반적으로 5초 후부터 스킵이 가능합니다.
+
+---
+
+## 광고 로드하기
+
+`InterstitialAd.loadAd(unitId)`를 통해서 광고를 load할 수 있습니다.
+
+```javascript
+import { InterstitialAd } from "react-native-daro-m";
+import { AdInfo, AdLoadFailedInfo, AdRevenueInfo } from "react-native-daro-m";
+
+const INTERSTITIAL_AD_UNIT_ID = Platform.select({
+    ios: ${iOS unit Id},
+    android: ${Android unit id},
+    default: ''
+});
+
+const initializeInterstitialAds = () => {
+  InterstitialAd.addAdLoadedEventListener((adInfo: AdInfo) => {...});
+  InterstitialAd.addAdLoadFailedEventListener((errorInfo: AdLoadFailedInfo) => {...});
+  InterstitialAd.addAdClickedEventListener((adInfo: AdInfo) => { ... });
+  InterstitialAd.addAdDisplayedEventListener((adInfo: AdInfo) => { ... });
+  InterstitialAd.addAdFailedToDisplayEventListener((adInfo: AdDisplayFailedInfo) = { ... });
+  InterstitialAd.addAdHiddenEventListener((adInfo: AdInfo) => { ... });
+  InterstitialAd.addAdImpressionRecordedListener((adInfo: addAdImpressionRecordedListener) => { ... });
+
+  // Load the first interstitial
+  loadInterstitial();
+}
+
+const loadInterstitial = () => {
+  InterstitialAd.loadAd(INTERSTITIAL_AD_UNIT_ID);
+}
+
+```
+
+## 광고 보여주기
+
+`InterstitialAd.showAd(unitId)`를 통해서 로드한 광고를 보여줄 수 있습니다.
+
+```javascript
+const isInterstitialReady = await InterstitialAd.isAdReady(
+  INTERSTITIAL_AD_UNIT_ID
+);
+
+if (isInterstitialReady) {
+  InterstitialAd.showAd(INTERSTITIAL_AD_UNIT_ID);
+}
+```
+
+
+### 구현 예시
+
+<details>
+
+ <summary>`InterstitialAd` 구현 예시입니다.</summary>
+
+```javascript
+import { useEffect, useRef, useState } from "react";
+import { StyleSheet } from "react-native";
+import { AdDisplayFailedInfo, AdInfo, AdLoadFailedInfo, AdRevenueInfo, InterstitialAd } from "react-native-daro-m";
+import { ThemedButton } from "../ThemedButton";
+
+enum AdLoadState {
+  notLoaded = 'NOT_LOADED',
+  loading = 'LOADING',
+  loaded = 'LOADED',
+}
+
+type Props = {
+  adUnitId: string;
+  isInitialized: boolean;
+  log: (str: string) => void;
+};
+
+const MAX_EXPONENTIAL_RETRY_COUNT = 3;
+
+const InterstitialAdExample = ({ adUnitId, isInitialized, log }: Props) => {
+  const [adLoadState, setAdLoadState] = useState<AdLoadState>(AdLoadState.notLoaded);
+  const retryAttempt = useRef(0);
+
+  useEffect(() => {
+    InterstitialAd.addAdLoadedEventListener((adInfo: AdInfo) => {
+      setAdLoadState(AdLoadState.loaded);
+      retryAttempt.current = 0;
+      log(`Interstitial ad loaded from ${adInfo.networkName}`);
+    });
+
+    InterstitialAd.addAdImpressionRecordedListener((adInfo: AdRevenueInfo) => {
+      log(`Interstitial ad revenue paid: ${adInfo.revenue} from ${adInfo.networkName}`);
+    });
+
+    InterstitialAd.addAdClickedEventListener((adInfo: AdInfo) => {
+      log(`Interstitial ad clicked from ${adInfo.networkName}`);
+    });
+
+    // Handle ad load failure
+    InterstitialAd.addAdLoadFailedEventListener((errorInfo: AdLoadFailedInfo) => {
+      setAdLoadState(AdLoadState.notLoaded)
+
+      if (retryAttempt.current > MAX_EXPONENTIAL_RETRY_COUNT) {
+        log('Interstitial ad failed to load with code ' + errorInfo.code);
+        return;
+      }
+
+      // Interstitial ad failed to load
+      // We recommend retrying with exponentially higher delays up to a maximum delay (in this case 64 seconds)
+      retryAttempt.current += 1;
+
+      const retryDelay = Math.pow(2, Math.min(MAX_EXPONENTIAL_RETRY_COUNT, retryAttempt.current));
+      log('Interstitial ad failed to load with code ' + errorInfo.code + ' - retrying in ' + retryDelay + 's');
+
+      setTimeout(() => {
+        setAdLoadState(AdLoadState.loading);
+        log('Interstitial ad retrying to load...');
+        InterstitialAd.loadAd(adUnitId);
+      }, retryDelay * 1000);
+    });
+
+    InterstitialAd.addAdDisplayedEventListener((adInfo: AdInfo) => {
+      log(`Interstitial ad displayed from ${adInfo.networkName}`);
+    });
+
+    InterstitialAd.addAdFailedToDisplayEventListener((adInfo: AdDisplayFailedInfo) => {
+      setAdLoadState(AdLoadState.notLoaded);
+      log(`Interstitial ad failed to display from ${adInfo.networkName}`);
+    });
+
+    InterstitialAd.addAdHiddenEventListener((adInfo: AdInfo) => {
+      setAdLoadState(AdLoadState.notLoaded);
+      log(`Interstitial ad hidden from ${adInfo.networkName}`);
+    });
+
+  }, [adUnitId]);
+
+  const getInterstitialButtonTitle = () => {
+    if (adLoadState === AdLoadState.notLoaded) {
+      return 'Load Interstitial';
+    } else if (adLoadState === AdLoadState.loading) {
+      return 'Loading...';
+    } else {
+      return 'Show Interstitial'; // adLoadState.loaded
+    }
+  };
+  return (
+    <ThemedButton
+      isEnabled={isInitialized && adLoadState !== AdLoadState.loading}
+      isLoading={adLoadState === AdLoadState.loading}
+      title={getInterstitialButtonTitle()}
+      onPress={async () => {
+        const isInterstitialReady = await InterstitialAd.isAdReady(adUnitId);
+        if (isInterstitialReady) {
+          InterstitialAd.showAd(adUnitId);
+      } else {
+        log('Loading interstitial ad...');
+        setAdLoadState(AdLoadState.loading);
+        InterstitialAd.loadAd(adUnitId);
+      }
+    }} />
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    margin: 5,
+  },
+});
+
+export default InterstitialAdExample;
+```
+
+</details>

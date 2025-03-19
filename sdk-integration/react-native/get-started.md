@@ -1,0 +1,488 @@
+---
+sidebar_position: 1
+---
+
+# 시작하기
+
+![React](https://img.shields.io/badge/Daro_React_Native_SDK-v0.9.20-61DAFB?logo=react&logoColor=white)
+
+Daro React Native SDK를 앱에 통합하는 방법에 대해 안내합니다.
+
+:::note 참고
+
+- React Native에 대해서는 앱 카테고리와 관계 없이 Daro SDK 연동을 지원합니다.
+  :::
+
+---
+
+## 시작하기 전에
+
+React Native 프로젝트에 Daro SDK를 통합하기 전에 필요한 사항들을 확인하세요.
+
+## 앱 설정하기
+
+### npm 패키지 추가하기
+
+터미널에서 npm 패키지를 추가합니다.
+
+```
+npm i react-native-daro-m
+```
+
+### Android 프로젝트 설정하기
+
+<details>
+<summary>Android 프로젝트 설정하기</summary>
+
+    1. `settings.gradle`에 maven repository 들을 추가합니다.
+
+        - build.gradle.kotlin (Kotlin)
+
+        ```kotlin
+        dependencyResolutionManagement {
+            ...
+            repositories {
+                google()
+                mavenCentral()
+                ...
+
+                maven {
+                    url = uri("https://jitpack.io")
+                }
+                maven {
+                    url = uri("https://android-sdk.is.com")
+                }
+                maven {
+                    url = uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea")
+                }
+                maven {
+                    url = uri("https://maven.ogury.co")
+                }
+                maven {
+                    url = uri("https://artifact.bytedance.com/repository/pangle")
+                }
+                maven {
+                    url = uri("https://s3.amazonaws.com/smaato-sdk-releases/")
+                }
+                maven {
+                    url = uri("https://verve.jfrog.io/artifactory/verve-gradle-release")
+                }
+            }
+        }
+        ```
+
+        - build.gradle (Groovy)
+        ```groovy
+        allprojects {
+            ...
+            repositories {
+                ...
+                maven {
+                    url "https://jitpack.io"
+                }
+                maven {
+                    url "https://android-sdk.is.com"
+                }
+                maven {
+                    url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
+                }
+                maven {
+                    url "https://maven.ogury.co"
+                }
+                maven {
+                    url "https://artifact.bytedance.com/repository/pangle"
+                }
+                maven {
+                    url "https://s3.amazonaws.com/smaato-sdk-releases/"
+                }
+                maven {
+                    url "https://verve.jfrog.io/artifactory/verve-gradle-release"
+                }
+            }
+        ```
+
+    2. `build.gradle(root)`에 buildScript를 추가합니다.
+
+        - build.gradle (Groovy)
+
+        ```groovy
+        buildscript {
+            repositories {
+                google()
+                mavenCentral()
+                maven { url "https://artifacts.applovin.com/android" }
+                maven { url "https://jitpack.io" }
+            }
+            dependencies {
+                classpath 'com.applovin.quality:AppLovinQualityServiceGradlePlugin:5.5.2'
+                classpath 'com.github.delightroom:daro-android-plugin:0.3.0'
+            }
+        }
+        ```
+
+        - build.gradle.kotlin (Kotlin)
+
+        ```kotlin
+        buildscript {
+            repositories {
+                google()
+                mavenCentral()
+                maven { url = uri("https://artifacts.applovin.com/android") }
+                maven { url = uri("https://jitpack.io") }
+            }
+            dependencies {
+                classpath("com.applovin.quality:AppLovinQualityServiceGradlePlugin:5.5.2")
+                classpath("com.github.delightroom:daro-android-plugin:0.3.0")
+            }
+        }
+        ```
+
+    3. `build.gradle(app)`에 플러그인을 추가합니다.
+
+        - build.gradle.kotlin (Kotlin)
+
+        ```kotlin
+        plugins {
+            ...
+            id("droom.daro.m")
+            ...
+        }
+        ```
+
+        - build.gradle (Groovy)
+
+        ```groovy
+        plugins {
+            ...
+            id 'droom.daro.m'
+            ...
+        }
+        ```
+
+    4. app 모듈의 rootProject에 `daro-service.json` 파일을 추가합니다.
+
+        ```
+        ${rootProject}/
+        ├── app/
+        │
+        ...
+        │
+        ├── daro-serivce.json
+
+        ```
+        :::note
+        `daro-service.json` 파일은 DARO 대시보드에서 앱을 등록하고 앱 리스트 표의 맨 오른쪽 Key File 열에서 Download 버튼 클릭하여 다운로드 받을 수 있습니다.
+        :::
+
+</details>
+
+### iOS 프로젝트 설정하기
+
+<details>
+<summary>iOS 프로젝트 설정하기</summary>
+
+- `ios/PROJECT_NAME.xcworkspace` 을 열고 `daro-service.json` 파일을 드래그 앤 드롭으로 추가합니다.
+
+    :::note
+    `daro-service.json` 파일은 DARO 대시보드에서 앱을 등록하고 앱 리스트 표의 맨 오른쪽 Key File 열에서 Download 버튼 클릭하여 다운로드 받을 수 있습니다.
+    :::
+
+- `Info.plist` 에 다음 ID들을 추가합니다.
+
+    ```xml
+    <key>GADApplicationIdentifier</key>
+    <string> /* Daro 대시보드에서 발급받은 Admob Key 추가 */ </string>
+    <key>SKAdNetworkItems</key>
+    <array>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>cstr6suwn9.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>4fzdc2evr5.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>4pfyvq9l8r.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>2fnua5tdw4.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>ydx93a7ass.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>5a6flpkh64.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>p78axxw29g.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>v72qych5uu.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>ludvb6z3bs.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>cp8zw746q7.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>3sh42y64q3.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>c6k4g5qg8m.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>s39g8k73mm.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>3qy4746246.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>f38h382jlk.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>hs6bdukanm.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>v4nxqhlyqp.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>wzmmz9fp6w.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>yclnxrl5pm.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>t38b2kh725.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>7ug5zh24hu.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>gta9lk7p23.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>vutu7akeur.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>y5ghdn5j9k.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>n6fk4nfna4.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>v9wttpbfk9.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>n38lu8286q.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>47vhws6wlr.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>kbd757ywx3.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>9t245vhmpl.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>eh6m2bh4zr.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>a2p9lx4jpn.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>22mmun2rn5.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>4468km3ulz.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>2u9pt9hc89.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>8s468mfl3y.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>klf5c3l5u5.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>ppxm28t8ap.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>ecpz2srf59.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>uw77j35x4d.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>pwa73g5rt2.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>mlmmfzh3r3.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>578prtvx9j.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>4dzt52r2t5.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>e5fvkxwrpn.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>8c4e2ghe7u.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>zq492l623r.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>3rd42ekr43.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>3qcr597p9d.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>mj797d8u6f.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>55644vm79v.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>6yxyv74ff7.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>55y65gfgn7.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>cwn433xbcr.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>nu4557a4je.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>w7jznl3r6g.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>577p5t736z.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>6rd35atwn8.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>7bxrt786m8.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>7fbxrn65az.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>dt3cjx1a9i.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>fz2k2k5tej.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>jk2fsx2rgz.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>r8lj5b58b5.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>tmhh9296z4.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>k6y4y55b64.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>qwpu75vrh2.skadnetwork</string>
+    </dict>
+    </array>
+    ```
+</details>
+
+## SDK 초기화하기
+
+`DaroMModule.initialize()`를 호출하여 sdk 를 초기화합니다.
+
+```javascript
+import { NativeModules } from 'react-native';
+import { initialize } from "react-native-daro-m";
+
+...
+
+const DaroMModule = NativeModules.DaroMModule ? NativeModules.DaroMModule : new Proxy({}, {
+  get() {
+    throw new Error(LINKING_ERROR);
+  },
+});
+
+...
+
+await DaroMModule.initialize();
+```

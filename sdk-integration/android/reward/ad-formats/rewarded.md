@@ -1,0 +1,95 @@
+---
+sidebar-position: 5
+---
+
+# 리워드 비디오 광고
+
+## 리워드 비디오 형태 소개
+
+- 광고 시청을 대가로 인앱 가치를 지닌 보상(재화, 기능, 컨텐츠 등)을 제공하는 형태의 광고입니다.
+- 보상을 대가로 시청하므로 동영상 광고의 스킵이 불가능하며 일반적인 길이는 30초입니다.
+
+---
+
+## Loader 생성하기
+
+```kotlin
+val rewardedLoader = DaroMRewardedAdLoader(
+    context = ...,
+    adRewardedUnit = DaroMAdRewardedUnit(
+      unitId = ${unitId},
+      placementName = ${placementName}, //로그 상 보여질 이름입니다. 공백을 보내도 무관합니다.
+    )
+  )
+```
+
+## 광고 로드 및 그리기
+
+1. `load()` 를 호출하면 onSuccess를 콜백을 통해서 `DaroMRewardedAd` 를 얻을 수 있습니다.
+
+   ```kotlin
+   rewardedLoader.load(
+     context = ...,
+     onSuccess = { ad ->
+       ...
+     },
+     onFailure = { err ->
+       ...
+     }
+   )
+   ```
+
+2. onSuccess 에서 받아온 `DaroMRewardedAd`에 `show()` 를 호출을 통해서 광고를 보여줄 수 있습니다.
+
+   ```kotlin
+   ad.show(
+     activity = ...,
+     adListener = object : DaroMRewardedAdListener {
+       override fun onEarnedReward(rewardItem: DaroMRewardItem) {
+       }
+
+       override fun onFailedToShow(errorMsg: String) {
+       }
+
+       override fun onShown() {
+       }
+
+       override fun onDismiss() {
+       }
+
+       override fun onImpression() {
+       }
+     }
+   )
+   ```
+
+   `DaroMRewardedAdListener`를 통해서 광고 표시, 리워드 획득 등을 관리할 수 있습니다.
+
+## 리워드 비디오 광고 콜백 메서드
+
+- 다음 코드는 사용자의 내부 User ID를 태그하는 방법을 보여줍니다. User ID 문자열의 최대 크기는 8192자입니다.
+
+```kotlin
+
+Daro.setUserId(this, "${USER_ID}")
+
+```
+
+- 다음 코드는 콜백에 CustomData를 추가하는 방법을 보여줍니다.
+
+```kotlin
+
+DaroMRewardedAdLoader(
+  ...
+).load(
+  context = this,
+  onSuccess = { ad, _ ->
+    ad.show(
+      ...,
+      customData = "${CUSTOM_DATA}"
+    )
+  },
+  onFailure = {}
+)
+
+```

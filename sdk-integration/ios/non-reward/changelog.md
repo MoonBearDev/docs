@@ -1,0 +1,34 @@
+---
+sidebar_position: 4
+---
+# Changelog
+
+## 1.0.2
+
+2025-01-14
+
+- Minor improvements
+
+---
+
+## 1.0.1
+
+2025-01-14
+
+- Add daro-service.json file
+
+---
+
+## 0.9.11
+
+2024-10-15
+
+- Add interface to set Refresh Interval
+
+---
+
+## 0.9.9
+
+2024-10-07
+
+- Minor improvements

@@ -1,0 +1,78 @@
+---
+sidebar_position: 5
+---
+
+# 리워드 비디오 광고
+
+## 리워드 비디오 형태 소개
+
+- 광고 시청을 대가로 인앱 가치를 지닌 보상(재화, 기능, 컨텐츠 등)을 제공하는 형태의 광고입니다.
+- 보상을 대가로 시청하므로 동영상 광고의 스킵이 불가능하며 일반적인 길이는 30초입니다.
+
+---
+
+## 광고 단위 설정
+
+:::note
+대시보드에서 발급받은 `ad unit ID`를 사용하여 광고 단위를 설정하세요.
+:::
+
+```swift showLineNumbers
+extension DaroMAdViewUnit {
+
+    static let rewarded = DaroMAdViewUnit(
+        adUnitID: "...",
+        name: "...", // Optional
+        format: .rewarded
+    )
+}
+```
+
+## 리워드 비디오 광고 구현
+
+```swift showLineNumbers
+let rewardedAd = DaroMRewardedAd.shared(adUnit: DaroMAdViewUnit.rewarded)
+
+// (Optional) 필요한 경우 Delegate 를 설정합니다.
+
+rewardedAd.clickDelegate = self
+rewardedAd.displayDelegate = self
+rewardedAd.loadingDelegate = self
+rewardedAd.impressionDelegate = self
+// highlight-next-line
+rewardedAd.rewardedDelegate = self
+
+// 광고 로드 요청
+// highlight-next-line
+rewardedAd.load()
+// 혹은 await rewardedAd.loadAsync()
+
+...
+
+if rewardedAd?.isReady == true {
+  // highlight-next-line
+  rewardedAd?.show()
+  // await rewardedAd.showAsync()
+}
+
+```
+
+
+## 리워드 비디오 광고 콜백 메서드
+
+- 다음 코드는 사용자의 내부 User ID를 태그하는 방법을 보여줍니다. User ID 문자열의 최대 크기는 8192자입니다.
+
+```swift showLineNumbers
+
+DaroMMobileAds.shared.settings.userIdentifier = "user_id"
+
+```
+
+
+- 다음 코드는 ad unit에 placement 이름을 추가하는 방법을 보여줍니다. placement 이름 값은 포스트백 요청의 PLACEMENT 매크로를 대체합니다:
+
+```swift showLineNumbers
+
+rewardedAd?.show(placement: "placement_id", customData: "custom_data")
+
+```

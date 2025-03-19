@@ -1,0 +1,30 @@
+---
+sidebar_position: 4
+---
+
+# Changelog
+
+## 0.9.21
+
+- callback URL 대응
+
+## 0.9.20
+
+- 리워드 광고 관련 버그 수정
+
+## 0.9.17
+
+- 안드로이드 admob native 텍스트 뷰 버그 적용
+
+## 0.9.16
+
+- iOS 네이티브 광고 버그 수정
+
+## 0.9.8
+
+- 안드로이드 빌드 이슈 수정
+- Android DT Exchange adpater 추가
+
+## 0.9.7
+
+- daro-service.json 사용
