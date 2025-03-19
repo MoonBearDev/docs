@@ -49,7 +49,16 @@
                     "group": "Reward 앱에 연동하기",
                     "pages": [
                       "sdk-integration/android/reward/get-started",
-                      "essentials/code",
+                      {
+                        "group": "광고 포맷",
+                        "pages": [
+                          "sdk-integration/android/reward/ad-formats/banner",
+                          "sdk-integration/android/reward/ad-formats/mrec",
+                          "sdk-integration/android/reward/ad-formats/native",
+                          "sdk-integration/android/reward/ad-formats/interstitial",
+                          "sdk-integration/android/reward/ad-formats/rewarded"
+                        ]
+                      },
                       "sdk-integration/android/reward/changelog"
                     ]
                   }
@@ -59,9 +68,41 @@
                 "group": "iOS",
                 "icon": "apple",
                 "pages": [
-                  "essentials/markdown",
-                  "essentials/code",
-                  "essentials/images"
+                  "sdk-integration/ios/before-the-integration",
+                  {
+                    "group": "Non-reward 앱에 연동하기",
+                    "pages": [
+                      "sdk-integration/ios/non-reward/get-started",
+                      {
+                        "group": "광고 포맷",
+                        "pages": [
+                          "sdk-integration/ios/non-reward/ad-formats/banner",
+                          "sdk-integration/ios/non-reward/ad-formats/mrec",
+                          "sdk-integration/ios/non-reward/ad-formats/native",
+                          "sdk-integration/ios/non-reward/ad-formats/interstitial",
+                          "sdk-integration/ios/non-reward/ad-formats/rewarded"
+                        ]
+                      },
+                      "sdk-integration/ios/non-reward/changelog"
+                    ]
+                  },
+                  {
+                    "group": "Reward 앱에 연동하기",
+                    "pages": [
+                      "sdk-integration/ios/reward/get-started",
+                      {
+                        "group": "광고 포맷",
+                        "pages": [
+                          "sdk-integration/ios/reward/ad-formats/banner",
+                          "sdk-integration/ios/reward/ad-formats/mrec",
+                          "sdk-integration/ios/reward/ad-formats/native",
+                          "sdk-integration/ios/reward/ad-formats/interstitial",
+                          "sdk-integration/ios/reward/ad-formats/rewarded"
+                        ]
+                      },
+                      "sdk-integration/ios/reward/changelog"
+                    ]
+                  }
                 ]
               }
             ]
