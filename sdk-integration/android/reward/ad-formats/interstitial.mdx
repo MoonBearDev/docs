@@ -1,8 +1,7 @@
 ---
-sidebar-position: 4
+sidebar-position: "4"
+title: "인터스티셜 광고"
 ---
-
-# 인터스티셜 광고
 
 ## 인터스티셜 형태 소개
 
@@ -38,7 +37,6 @@ val interstitialLoader = DaroMInterstitialAdLoader(
      }
    )
    ```
-
 2. onSuccess 에서 받아온 `DaroMInterstitialAd`에 `show()` 를 호출을 통해서 광고를 보여줄 수 있습니다.
 
    ```kotlin
@@ -47,13 +45,13 @@ val interstitialLoader = DaroMInterstitialAdLoader(
      object : DaroMInterstitialAdListener {
        override fun onFailedToShow(errorMsg: String) {
        }
-
+   
        override fun onShown() {
        }
-
+   
        override fun onDismiss() {
        }
-
+   
        override fun onImpression() {
        }
      }

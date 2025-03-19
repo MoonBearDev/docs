@@ -1,8 +1,7 @@
 ---
-sidebar-position: 5
+sidebar-position: "5"
+title: "리워드 비디오 광고"
 ---
-
-# 리워드 비디오 광고
 
 ## 리워드 비디오 형태 소개
 
@@ -38,7 +37,6 @@ val rewardedLoader = DaroMRewardedAdLoader(
      }
    )
    ```
-
 2. onSuccess 에서 받아온 `DaroMRewardedAd`에 `show()` 를 호출을 통해서 광고를 보여줄 수 있습니다.
 
    ```kotlin
@@ -47,16 +45,16 @@ val rewardedLoader = DaroMRewardedAdLoader(
      adListener = object : DaroMRewardedAdListener {
        override fun onEarnedReward(rewardItem: DaroMRewardItem) {
        }
-
+   
        override fun onFailedToShow(errorMsg: String) {
        }
-
+   
        override fun onShown() {
        }
-
+   
        override fun onDismiss() {
        }
-
+   
        override fun onImpression() {
        }
      }
@@ -72,7 +70,6 @@ val rewardedLoader = DaroMRewardedAdLoader(
 ```kotlin
 
 Daro.setUserId(this, "${USER_ID}")
-
 ```
 
 - 다음 코드는 콜백에 CustomData를 추가하는 방법을 보여줍니다.
@@ -91,5 +88,4 @@ DaroMRewardedAdLoader(
   },
   onFailure = {}
 )
-
 ```
