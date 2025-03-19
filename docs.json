@@ -8,68 +8,79 @@
     "dark": "#5400b9"
   },
   "favicon": "/daro-favicon.svg",
-  "primaryTab": {
-    "name": "Guides"
-  },
-  "navigation": [
-    {
-      "group": "다로 시작하기",
-      "pages": [
-        "before-the-beginning",
-        "quickstart"
-      ]
-    },
-    {
-      "group": "SDK 통합하기",
-      "pages": [
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "다로 시작하기",
+            "pages": [
+              "before-the-beginning",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "SDK 통합하기",
+            "pages": [
+              {
+                "group": "Android",
+                "icon": "android",
+                "pages": [
+                  "essentials/markdown",
+                  "essentials/code",
+                  "essentials/images"
+                ]
+              },
+              {
+                "group": "iOS",
+                "icon": "apple",
+                "pages": [
+                  "essentials/settings",
+                  "essentials/navigation",
+                  "essentials/reusable-snippets"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
         {
-          "group": "Android",
-          "icon": "android",
-          "pages": [
-            "essentials/markdown",
-            "essentials/code",
-            "essentials/images"
-          ]
+          "anchor": "Documentation",
+          "href": "https://docs.daro.so",
+          "icon": "book-open-cover"
         },
         {
-          "group": "iOS",
-          "icon": "apple",
-          "pages": [
-            "essentials/settings",
-            "essentials/navigation",
-            "essentials/reusable-snippets"
-          ]
+          "anchor": "Blog",
+          "href": "https://daro.so/blog",
+          "icon": "newspaper"
         }
       ]
     }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://docs.daro.so"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://daro.so/blog"
-    }
-  ],
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:support@daro.so"
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@daro.so"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.daro.so"
     }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.daro.so"
   },
-  "footerSocials": {
-    "linkedin": "https://linkedin.com/company/delightroom"
+  "footer": {
+    "socials": {
+      "linkedin": "https://linkedin.com/company/delightroom"
+    }
   }
 }
