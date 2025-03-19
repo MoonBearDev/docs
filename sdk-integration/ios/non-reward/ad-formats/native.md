@@ -2,14 +2,9 @@
 sidebar_position: 3
 ---
 
-import nativeLargeAdExample from './img/daro-ios-large-native.jpeg';
-import nativeLineAdExample from './img/daro-ios-line-native.jpeg';
-
 # 네이티브 광고
 
 ## 네이티브 형태 소개
-
-<img src={nativeLargeAdExample} alt="native ad example" style={{width: "30%"}}/>
 
 - 광고 뷰를 미디에이션 SDK가 구현해주는 타 광고 형태와 달리 네이티브 광고 형태는 구성 요소들을 전달받아 앱에서 직접 광고 뷰를 구현합니다.
 - UI/UX 기반으로 레이아웃을 직접 구현하므로써 위화감을 적게 만들 수 있다는 것이 가장 큰 특징입니다. 단, 유저가 광고가 아닌 컨텐츠로써 착각하는 경우를 방지하기 위해 광고 표시와 함께 최소한의 차별성은 부여해야합니다.
