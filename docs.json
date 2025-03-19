@@ -5,11 +5,7 @@
   "colors": {
     "primary": "#6300da",
     "light": "#9747ff",
-    "dark": "#5400b9",
-    "anchors": {
-      "from": "#6300da",
-      "to": "#9747ff"
-    }
+    "dark": "#5400b9"
   },
   "favicon": "/daro-favicon.svg",
   "navigation": {
