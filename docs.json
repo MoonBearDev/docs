@@ -27,21 +27,21 @@
                 "group": "Android",
                 "icon": "android",
                 "pages": [
-                  "android/before-the-integration",
+                  "sdk-integration/android/before-the-integration",
                   {
                     "group": "Non-reward 앱에 연동하기",
                     "pages": [
-                      "android/non-reward/get-started",
+                      "sdk-integration/android/non-reward/get-started",
                       "essentials/code",
-                      "android/non-reward/changelog"
+                      "sdk-integration/android/non-reward/changelog"
                     ]
                   },
                   {
                     "group": "Reward 앱에 연동하기",
                     "pages": [
-                      "android/reward/get-started",
+                      "sdk-integration/android/reward/get-started",
                       "essentials/code",
-                      "android/reward/changelog"
+                      "sdk-integration/android/reward/changelog"
                     ]
                   }
                 ]
