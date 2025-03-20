@@ -33,8 +33,8 @@ https://yourrewardedserver.com/rewards?mediation_ad_unit_id=9ad0816ac071552a&cus
 
 콜백 URL에 다음 표의 파라미터가 모두 쿼리스트링으로 함께 전송됩니다. custom_data 나 user_id를 설정 하지 않은 경우 null로 전달 됩니다.
 
-<div className="overflow-x-auto">
-  <table className="w-full">
+<div className="overflow-x-auto max-w-full">
+  <table className="w-full table-fixed">
     <colgroup>
       <col className="w-1/5" />
       <col className="w-2/5" />
@@ -71,7 +71,7 @@ https://yourrewardedserver.com/rewards?mediation_ad_unit_id=9ad0816ac071552a&cus
           2. transaction_id 를 넣고 digest 생성
           3. 16진수 (hex) 인코딩
         </td>
-        <td>b46635e51e76778ec15856720114c4edd6b6c3c7aeeb2a1b51dc346640cbca45</td>
+        <td className="break-words">b46635e51e76778ec15856720114c4edd6b6c3c7aeeb2a1b51dc346640cbca45</td>
         <td>String</td>
       </tr>
       <tr>
@@ -83,7 +83,7 @@ https://yourrewardedserver.com/rewards?mediation_ad_unit_id=9ad0816ac071552a&cus
       <tr>
         <td>transaction_id</td>
         <td>고유 트랜잭션 ID, 32자리 16진수</td>
-        <td>0d0f748fcd0d4a4a9f6ac809216564b1</td>
+        <td className="break-words">0d0f748fcd0d4a4a9f6ac809216564b1</td>
         <td>String</td>
       </tr>
       <tr>
