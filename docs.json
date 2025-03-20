@@ -206,7 +206,7 @@
     }
   },
   "footer": {
-    "hideMadeWithMintlify": true,
+    "hideBrandFooter": true,
     "socials": {
       "linkedin": "https://linkedin.com/company/delightroom"
     }
