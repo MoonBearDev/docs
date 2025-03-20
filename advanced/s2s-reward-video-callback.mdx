@@ -33,129 +33,67 @@ https://yourrewardedserver.com/rewards?mediation_ad_unit_id=9ad0816ac071552a&cus
 
 콜백 URL에 다음 표의 파라미터가 모두 쿼리스트링으로 함께 전송됩니다. custom_data 나 user_id를 설정 하지 않은 경우 null로 전달 됩니다.
 
-<div style={{ maxWidth:"100%",overflowX:"auto" }}>
-<table style={{ tableLayout:"fixed",width:"100%" }}>
-<colgroup>
-  <col style={{width: '20%'}} />
-
-  <col style={{width: '40%'}} />
-
-  <col style={{width: '25%'}} />
-
-  <col style={{width: '15%'}} />
-</colgroup>
-
-<thead>
-<tr>
-쿼리 파라미터 이름
-
-
-설명
-
-
-예시
-
-
-데이터 타입
-
-</tr>
-
-</thead>
-
-<tbody>
-<tr>
-mediation_ad_unit_id
-
-
-미디에이션 광고 단위 ID (16자리 16진수)
-
-
-9ad0816ac071552a
-
-
-String
-
-</tr>
-
-<tr>
-custom_data (optional)
-
-
-사용자 정의 데이터 (URL 인코딩됨). 문자열 크기를 8192자 미만으로 유지할 것을 권장합니다.
-
-
-my%20custom%20data
-
-
-String
-
-</tr>
-
-<tr>
-key
-
-<td style={{ border:"1px solid #ddd",padding:"8px",wordWrap:"break-word" }}>
-아래 과정을 통해 생성된 키와 비교를 통해 검증 합니다.
-
-1. hmac sha256 '콜백 검증 키'*를 넣고 초기화
-2. transaction_id 를 넣고 digest 생성
-3. 16진수 (hex) 인코딩
-
-</td>
-
-b46635e51e76778ec15856720114c4edd6b6c3c7aeeb2a1b51dc346640cbca45
-
-
-String
-
-</tr>
-
-<tr>
-timestamp
-
-
-광고 로드 시간의 타임스탬프 (정수, Epoch Time)
-
-
-1546300800
-
-
-Int
-
-</tr>
-
-<tr>
-transaction_id
-
-
-고유 트랜잭션 ID, 32자리 16진수
-
-
-0d0f748fcd0d4a4a9f6ac809216564b1
-
-
-String
-
-</tr>
-
-<tr>
-user_id (optional)
-
-
-퍼블리셔가 정의한 사용자 ID (URL 인코딩됨); 최대 길이는 8192자
-
-
-7634657898
-
-
-String
-
-</tr>
-
-</tbody>
-
-</table>
-
+<div className="overflow-x-auto">
+  <table className="w-full">
+    <colgroup>
+      <col className="w-1/5" />
+      <col className="w-2/5" />
+      <col className="w-1/4" />
+      <col className="w-1/6" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>쿼리 파라미터 이름</th>
+        <th>설명</th>
+        <th>예시</th>
+        <th>데이터 타입</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>mediation_ad_unit_id</td>
+        <td>미디에이션 광고 단위 ID (16자리 16진수)</td>
+        <td>9ad0816ac071552a</td>
+        <td>String</td>
+      </tr>
+      <tr>
+        <td>custom_data (optional)</td>
+        <td>사용자 정의 데이터 (URL 인코딩됨). 문자열 크기를 8192자 미만으로 유지할 것을 권장합니다.</td>
+        <td>my%20custom%20data</td>
+        <td>String</td>
+      </tr>
+      <tr>
+        <td>key</td>
+        <td>
+          아래 과정을 통해 생성된 키와 비교를 통해 검증 합니다.
+          
+          1. hmac sha256 '콜백 검증 키'*를 넣고 초기화
+          2. transaction_id 를 넣고 digest 생성
+          3. 16진수 (hex) 인코딩
+        </td>
+        <td>b46635e51e76778ec15856720114c4edd6b6c3c7aeeb2a1b51dc346640cbca45</td>
+        <td>String</td>
+      </tr>
+      <tr>
+        <td>timestamp</td>
+        <td>광고 로드 시간의 타임스탬프 (정수, Epoch Time)</td>
+        <td>1546300800</td>
+        <td>Int</td>
+      </tr>
+      <tr>
+        <td>transaction_id</td>
+        <td>고유 트랜잭션 ID, 32자리 16진수</td>
+        <td>0d0f748fcd0d4a4a9f6ac809216564b1</td>
+        <td>String</td>
+      </tr>
+      <tr>
+        <td>user_id (optional)</td>
+        <td>퍼블리셔가 정의한 사용자 ID (URL 인코딩됨); 최대 길이는 8192자</td>
+        <td>7634657898</td>
+        <td>String</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 * 발급된 콜백 검증 키는 https://dashboard.daro.so/service/account 에서 확인 가능합니다.
