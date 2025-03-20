@@ -29,9 +29,7 @@ extension DaroNativeAdUnit {
 1. DaroNativeAdContentView 를 상속하는 뷰를 구현합니다. 원하는 뷰의 구조에 따라 특정 뷰들은 사용하지 않아도 됩니다.
 - 예를들어 starRatingLabel 이나, storeLabel 등은 네이티브 광고 템플릿에 따라 사용하지 않아도 됩니다.
 
-<details>
-<summary>DaroNativeAdContentView 샘플 코드</summary>
-
+<Accordion title="DaroNativeAdContentView 샘플 코드" icon="sparkles">
 ```swift
 
 final class DaroExampleNativeAdContentView: DaroNativeAdContentView {
@@ -229,14 +227,13 @@ final class DaroExampleNativeAdContentView: DaroNativeAdContentView {
 
 ```
 
-</details>
+</Accordion>
 
 
 
 2. DaroNativeAdView 를 초기화 할때 DaroNativeAdContentView 를 전달합니다.
 
-<details>
-<summary>DaroNativeAdView 샘플 코드</summary>
+<Accordion title="DaroNativeAdView 샘플 코드" icon="sparkles">
 
 ```swift
 public final class DaroExampleNativeAdView: UIView {
@@ -288,7 +285,7 @@ extension DaroExampleNativeAdView: DaroNativeAdDelegate {
 }
 ```
 
-</details>
+</Accordion>
 
 
 ## 네이티브 광고 템플릿
