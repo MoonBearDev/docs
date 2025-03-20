@@ -176,9 +176,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://docs.daro.so",
-          "icon": "book-open-cover"
+          "anchor": "Home",
+          "href": "https://daro.so",
+          "icon": "home"
         },
         {
           "anchor": "Blog",
