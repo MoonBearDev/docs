@@ -206,6 +206,7 @@
     }
   },
   "footer": {
+    "hideMadeWithMintlify": true,
     "socials": {
       "linkedin": "https://linkedin.com/company/delightroom"
     }
